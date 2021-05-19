@@ -22,6 +22,10 @@ public class LoginFunc {
         Peer peer = new Peer();
         peer.respond(Integer.parseInt(roomid_ta.getText()), username_ta.getText());
     }
+    public void execTest(JTextArea log_ta) {
+        DatabaseConn db = new DatabaseConn();
+        db.Test(log_ta);
+    }
     public void showLobby(JTextArea log_ta) {
         try {        
             try {Thread.sleep(500);} catch (InterruptedException ex) {Logger.getLogger(LoginFunc.class.getName()).log(Level.SEVERE, null, ex);}
@@ -53,4 +57,24 @@ public class LoginFunc {
             }
 		} catch (IOException e){System.out.println("[SRVR] " + e);}
 	}
+	public void removeRoom(int port_number) {
+		try {
+			FileReader fr = new FileReader(filename);
+            try (BufferedReader br = new BufferedReader(fr)) {
+                FileWriter fw = new FileWriter(filetemp);
+                try (BufferedWriter bw = new BufferedWriter(fw)) {
+                    while ((line = br.readLine()) != null) {
+                        if (!line.equals("#"+port_number)) {
+                            bw.write(line+"\n");
+                            bw.flush();
+                        }
+                    }
+                    bw.close();
+                    br.close();
+                    filename.delete();
+                    filetemp.renameTo(filename);                    
+                }
+            }
+		} catch (IOException e){System.out.println("[SRVR] " + e);}
+	}    
 }

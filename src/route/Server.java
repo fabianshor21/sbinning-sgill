@@ -1,6 +1,7 @@
 package route;
 import java.io.*;
 import java.net.*;
+import function.*;
 //
 public class Server extends Thread{
     //
@@ -11,7 +12,7 @@ public class Server extends Thread{
     public Server(int range_min, int range_max) {this.range_min = range_min; this.range_max = range_max;}
     public void listen() {
         this.port_number = (int)Math.floor(Math.random()*(this.range_max-this.range_min+1)+this.range_min);
-        RoomHandler room = new RoomHandler();
+        LoginFunc login_func = new LoginFunc();
         System.out.println("lobby port : #" + this.port_number);
         try {
             try (
@@ -34,7 +35,7 @@ public class Server extends Thread{
                     port.close();
                 }
                 if (this.message.equals("exit")) {
-                    room.removeRoom(this.port_number);
+                    login_func.removeRoom(this.port_number);
                     break;
                 }
             } catch(IOException e) {System.out.println("[SRVR] " + e);}

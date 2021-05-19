@@ -176,7 +176,7 @@ public class Login extends javax.swing.JFrame {
 
     private void refresh_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_btnMouseClicked
         // TODO add your handling code here:
-        login_func.showLobby(log_ta);
+        login_func.execTest(log_ta);
     }//GEN-LAST:event_refresh_btnMouseClicked
 
     private void create_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create_btnMouseClicked
