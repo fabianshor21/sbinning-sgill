@@ -6,15 +6,11 @@ import java.util.Scanner;
 public class Main {
     //
     private static char option;
-    private static Server server;
     private static int port_number;
     private static String message;
     //
     public static void main(String[] args) {
         Login login_page_1 = new Login(); login_page_1.setVisible(true);
-        Login login_page_2 = new Login(); login_page_2.setVisible(true);        
-        Peer peer = new Peer();
-        LoginFunc login_func = new LoginFunc();
         /*
         Scanner read = new Scanner(System.in);        
         System.out.println("1 | create room\n2 | join room\n---\n>> "); option = read.next().charAt(0);

@@ -1,213 +1,307 @@
 package window;
 import route.*;
 import function.*;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 //
 public class Login extends javax.swing.JFrame {
     //
     private LoginFunc login_func = new LoginFunc();
     private int port_number;
     //
+    
     public Login() {
         initComponents();
-        login_func.showLobby(log_ta);
+        warning_username_lbl.setVisible(false);
+        warning_password_lbl.setVisible(false);        
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backg = new javax.swing.JPanel();
-        create_btn = new javax.swing.JButton();
-        join_btn = new javax.swing.JButton();
-        log_sp_ta = new javax.swing.JScrollPane();
-        log_ta = new javax.swing.JTextArea();
-        log_sp_ta1 = new javax.swing.JScrollPane();
-        room_ta = new javax.swing.JTextArea();
-        leave_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        message_ta = new javax.swing.JTextArea();
-        refresh_btn = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        username_ta = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        lobbychat_ta = new javax.swing.JTextArea();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        roomid_ta = new javax.swing.JTextArea();
+        jTextArea1 = new javax.swing.JTextArea();
+        main_div = new javax.swing.JPanel();
+        header_div = new javax.swing.JPanel();
+        head_1_lbl = new javax.swing.JLabel();
+        head_2_lbl = new javax.swing.JLabel();
+        login_btn = new javax.swing.JButton();
+        body_div = new javax.swing.JPanel();
+        username_border = new javax.swing.JPanel();
+        password_border = new javax.swing.JPanel();
+        warning_username_lbl = new javax.swing.JLabel();
+        warning_password_lbl = new javax.swing.JLabel();
+        username_lbl = new javax.swing.JLabel();
+        password_lbl = new javax.swing.JLabel();
+        username_in = new javax.swing.JTextField();
+        password_in = new javax.swing.JPasswordField();
+        image_center = new javax.swing.JLabel();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sbinning Sgill");
         setResizable(false);
 
-        backg.setBackground(new java.awt.Color(68, 71, 90));
-        backg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(139, 233, 253), 3));
+        main_div.setBackground(new java.awt.Color(255, 255, 255));
+        main_div.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 167, 255), 4));
 
-        create_btn.setBackground(new java.awt.Color(153, 255, 153));
-        create_btn.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
-        create_btn.setText("CREATE");
-        create_btn.setToolTipText("");
-        create_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        create_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                create_btnMouseClicked(evt);
+        header_div.setBackground(new java.awt.Color(207, 253, 255));
+        header_div.setBorder(null);
+        header_div.setPreferredSize(new java.awt.Dimension(454, 80));
+
+        head_1_lbl.setFont(new java.awt.Font("JetBrains Mono", 3, 24)); // NOI18N
+        head_1_lbl.setForeground(new java.awt.Color(102, 124, 255));
+        head_1_lbl.setText("SBINNING");
+
+        head_2_lbl.setFont(new java.awt.Font("JetBrains Mono", 2, 24)); // NOI18N
+        head_2_lbl.setForeground(new java.awt.Color(102, 124, 255));
+        head_2_lbl.setText("SGILL.");
+
+        login_btn.setBackground(new java.awt.Color(255, 255, 255));
+        login_btn.setIcon(new javax.swing.ImageIcon("/home/cookie/Pictures/sbinningsgill/icons8-play-64.png")); // NOI18N
+        login_btn.setBorderPainted(false);
+        login_btn.setContentAreaFilled(false);
+        login_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        login_btn.setFocusPainted(false);
+        login_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                login_btnActionPerformed(evt);
             }
         });
 
-        join_btn.setBackground(new java.awt.Color(255, 255, 153));
-        join_btn.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
-        join_btn.setText("JOIN");
-        join_btn.setToolTipText("");
-        join_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        join_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                join_btnMouseClicked(evt);
-            }
-        });
-
-        log_ta.setColumns(20);
-        log_ta.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        log_ta.setRows(5);
-        log_ta.setTabSize(4);
-        log_ta.setBorder(null);
-        log_sp_ta.setViewportView(log_ta);
-
-        room_ta.setColumns(20);
-        room_ta.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        room_ta.setRows(1);
-        room_ta.setTabSize(4);
-        room_ta.setBorder(null);
-        log_sp_ta1.setViewportView(room_ta);
-
-        leave_btn.setBackground(new java.awt.Color(255, 153, 153));
-        leave_btn.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
-        leave_btn.setText("LEAVE");
-        leave_btn.setToolTipText("");
-        leave_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        message_ta.setColumns(20);
-        message_ta.setRows(3);
-        jScrollPane1.setViewportView(message_ta);
-
-        refresh_btn.setBackground(new java.awt.Color(204, 153, 255));
-        refresh_btn.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
-        refresh_btn.setText("REFRESH");
-        refresh_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                refresh_btnMouseClicked(evt);
-            }
-        });
-
-        username_ta.setColumns(2);
-        username_ta.setRows(1);
-        username_ta.setTabSize(1);
-        jScrollPane2.setViewportView(username_ta);
-
-        lobbychat_ta.setColumns(20);
-        lobbychat_ta.setRows(5);
-        jScrollPane3.setViewportView(lobbychat_ta);
-
-        roomid_ta.setColumns(2);
-        roomid_ta.setRows(1);
-        roomid_ta.setTabSize(1);
-        jScrollPane5.setViewportView(roomid_ta);
-
-        javax.swing.GroupLayout backgLayout = new javax.swing.GroupLayout(backg);
-        backg.setLayout(backgLayout);
-        backgLayout.setHorizontalGroup(
-            backgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(backgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(log_sp_ta)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                    .addComponent(log_sp_ta1)
-                    .addGroup(backgLayout.createSequentialGroup()
-                        .addComponent(create_btn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(leave_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(refresh_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(34, 34, 34)
-                .addGroup(backgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(backgLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(join_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
+        javax.swing.GroupLayout header_divLayout = new javax.swing.GroupLayout(header_div);
+        header_div.setLayout(header_divLayout);
+        header_divLayout.setHorizontalGroup(
+            header_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header_divLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(header_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(head_2_lbl)
+                    .addGroup(header_divLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(head_1_lbl)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
+                .addComponent(login_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        backgLayout.setVerticalGroup(
-            backgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgLayout.createSequentialGroup()
+        header_divLayout.setVerticalGroup(
+            header_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header_divLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(backgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(join_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(leave_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(create_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(header_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(header_divLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(head_2_lbl))
+                    .addComponent(head_1_lbl))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(header_divLayout.createSequentialGroup()
+                .addComponent(login_btn)
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        body_div.setBackground(new java.awt.Color(255, 255, 255));
+        body_div.setLayout(null);
+
+        username_border.setBackground(new java.awt.Color(153, 167, 255));
+
+        javax.swing.GroupLayout username_borderLayout = new javax.swing.GroupLayout(username_border);
+        username_border.setLayout(username_borderLayout);
+        username_borderLayout.setHorizontalGroup(
+            username_borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+        username_borderLayout.setVerticalGroup(
+            username_borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+
+        body_div.add(username_border);
+        username_border.setBounds(10, 120, 210, 5);
+
+        password_border.setBackground(new java.awt.Color(153, 167, 255));
+
+        javax.swing.GroupLayout password_borderLayout = new javax.swing.GroupLayout(password_border);
+        password_border.setLayout(password_borderLayout);
+        password_borderLayout.setHorizontalGroup(
+            password_borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+        password_borderLayout.setVerticalGroup(
+            password_borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+
+        body_div.add(password_border);
+        password_border.setBounds(10, 50, 210, 5);
+
+        warning_username_lbl.setIcon(new javax.swing.ImageIcon("/home/cookie/Pictures/sbinningsgill/icons8-information-24.png")); // NOI18N
+        warning_username_lbl.setToolTipText("");
+        warning_username_lbl.setFocusable(false);
+        body_div.add(warning_username_lbl);
+        warning_username_lbl.setBounds(220, 30, 24, 24);
+
+        warning_password_lbl.setIcon(new javax.swing.ImageIcon("/home/cookie/Pictures/sbinningsgill/icons8-information-24.png")); // NOI18N
+        warning_password_lbl.setToolTipText("");
+        warning_password_lbl.setFocusable(false);
+        body_div.add(warning_password_lbl);
+        warning_password_lbl.setBounds(220, 100, 24, 24);
+
+        username_lbl.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        username_lbl.setForeground(new java.awt.Color(153, 150, 245));
+        username_lbl.setText("USERNAME");
+        body_div.add(username_lbl);
+        username_lbl.setBounds(10, 10, 110, 20);
+
+        password_lbl.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        password_lbl.setForeground(new java.awt.Color(153, 150, 245));
+        password_lbl.setText("PASSWORD");
+        body_div.add(password_lbl);
+        password_lbl.setBounds(10, 80, 80, 20);
+
+        username_in.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        username_in.setForeground(new java.awt.Color(153, 123, 250));
+        username_in.setBorder(null);
+        username_in.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                username_inFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                username_inFocusLost(evt);
+            }
+        });
+        username_in.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                username_inKeyPressed(evt);
+            }
+        });
+        body_div.add(username_in);
+        username_in.setBounds(10, 30, 210, 17);
+
+        password_in.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        password_in.setForeground(new java.awt.Color(153, 123, 250));
+        password_in.setBorder(null);
+        password_in.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                password_inFocusLost(evt);
+            }
+        });
+        body_div.add(password_in);
+        password_in.setBounds(10, 100, 210, 17);
+
+        image_center.setIcon(new javax.swing.ImageIcon("/home/cookie/Pictures/sbinningsgill/undraw_old_day_6x25.png")); // NOI18N
+        body_div.add(image_center);
+        image_center.setBounds(10, 20, 380, 300);
+
+        javax.swing.GroupLayout main_divLayout = new javax.swing.GroupLayout(main_div);
+        main_div.setLayout(main_divLayout);
+        main_divLayout.setHorizontalGroup(
+            main_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(header_div, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(body_div, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        main_divLayout.setVerticalGroup(
+            main_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(main_divLayout.createSequentialGroup()
+                .addComponent(header_div, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(backgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane2)
-                    .addComponent(log_sp_ta1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(backgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(backgLayout.createSequentialGroup()
-                        .addComponent(refresh_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(log_sp_ta, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3))
-                .addContainerGap())
+                .addComponent(body_div, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(main_div, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(main_div, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refresh_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_btnMouseClicked
+    private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
         // TODO add your handling code here:
-        login_func.execTest(log_ta);
-    }//GEN-LAST:event_refresh_btnMouseClicked
+        boolean pass_check = false;
+        DatabaseConn db = new DatabaseConn();
+        ToolTip info = new ToolTip();
+        if (username_in.getText().isEmpty() || username_in.getText().length() < 6) {
+            info.manageTip(warning_username_lbl, "<html>\nPlease insert the username properly !<br>\nit's about 6 - 11 characters\n</html>");
+            pass_check = false;
+        } else {info.manageTip(warning_username_lbl); pass_check = true;}
+        
+        if (String.valueOf(password_in.getPassword()).equals("") || String.valueOf(password_in.getPassword()).length() < 6) {
+            info.manageTip(warning_password_lbl, "<html>\nPlease insert the password properly !<br>\nit's about 6 - 11 characters\n</html>");
+            pass_check = false;
+        } else {info.manageTip(warning_password_lbl); pass_check = true;}
+        
+        if (pass_check) {
+            switch(db.playerAvailabilty(username_in, password_in)) {
+                case 'F':
+                    info.manageTip(warning_password_lbl, "<html>\nYou have inserted incorrect password<br>\nfor account '"+username_in.getText()+"'\n</html>");                    
+                    break;
+                case 'N':
+                    String msg = "<html>There are no issued player to be found yet ...\nCreate new one as "+username_in.getText()+" ?";
+                    String head = "Detecting Newcomers";
+                    int dialog = info.manageDialog(JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, msg, head);
+                    if (dialog == JOptionPane.YES_OPTION) {
+                        System.out.println("Oke, buat akun");
+                        db.createNewPlayer(username_in, password_in);
+                    }
+                    break;
+            }
+        }
+    }//GEN-LAST:event_login_btnActionPerformed
 
-    private void create_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create_btnMouseClicked
+    
+    private void username_inKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_username_inKeyPressed
         // TODO add your handling code here:
-        this.port_number = login_func.execListener(log_ta);
-        room_ta.setText(" #" + this.port_number);
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            if (username_in.getText().length() == 1) {username_in.setText(" ");}
+        } 
+    }//GEN-LAST:event_username_inKeyPressed
 
-    }//GEN-LAST:event_create_btnMouseClicked
-
-    private void join_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_join_btnMouseClicked
+    private void username_inFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_username_inFocusGained
         // TODO add your handling code here:
-        login_func.execResponmder(roomid_ta, username_ta, lobbychat_ta);
-    }//GEN-LAST:event_join_btnMouseClicked
+    }//GEN-LAST:event_username_inFocusGained
+
+    private void username_inFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_username_inFocusLost
+        // TODO add your handling code here:
+        if (username_in.getText().length() > 11) {
+            username_in.setText(username_in.getText().substring(0, 11));
+        }
+    }//GEN-LAST:event_username_inFocusLost
+
+    private void password_inFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password_inFocusLost
+        // TODO add your handling code here:
+        if (String.valueOf(password_in.getPassword()).length() > 11) {
+            password_in.setText(String.valueOf(password_in.getPassword()).substring(0, 11));
+        }
+    }//GEN-LAST:event_password_inFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel backg;
-    private javax.swing.JButton create_btn;
+    private javax.swing.JPanel body_div;
+    private javax.swing.JLabel head_1_lbl;
+    private javax.swing.JLabel head_2_lbl;
+    private javax.swing.JPanel header_div;
+    private javax.swing.JLabel image_center;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JButton join_btn;
-    private javax.swing.JButton leave_btn;
-    private javax.swing.JTextArea lobbychat_ta;
-    private javax.swing.JScrollPane log_sp_ta;
-    private javax.swing.JScrollPane log_sp_ta1;
-    private javax.swing.JTextArea log_ta;
-    private javax.swing.JTextArea message_ta;
-    private javax.swing.JButton refresh_btn;
-    private javax.swing.JTextArea room_ta;
-    private javax.swing.JTextArea roomid_ta;
-    private javax.swing.JTextArea username_ta;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton login_btn;
+    private javax.swing.JPanel main_div;
+    private javax.swing.JPanel password_border;
+    private javax.swing.JPasswordField password_in;
+    private javax.swing.JLabel password_lbl;
+    private javax.swing.JPanel username_border;
+    private javax.swing.JTextField username_in;
+    private javax.swing.JLabel username_lbl;
+    private javax.swing.JLabel warning_password_lbl;
+    private javax.swing.JLabel warning_username_lbl;
     // End of variables declaration//GEN-END:variables
 }
