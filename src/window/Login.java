@@ -1,19 +1,26 @@
 package window;
 import route.*;
 import function.*;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.border.MatteBorder;
 //
 public class Login extends javax.swing.JFrame {
     //
-    private LoginFunc login_func = new LoginFunc();
     private int port_number;
+    public String username;
     //
     
     public Login() {
         initComponents();
         warning_username_lbl.setVisible(false);
         warning_password_lbl.setVisible(false);        
+        header_div.setBorder(new MatteBorder(0, 0, 4, 0, Color.decode("#99A7FF")));
     }
 
     @SuppressWarnings("unchecked")
@@ -62,7 +69,7 @@ public class Login extends javax.swing.JFrame {
         head_2_lbl.setText("SGILL.");
 
         login_btn.setBackground(new java.awt.Color(255, 255, 255));
-        login_btn.setIcon(new javax.swing.ImageIcon("/home/cookie/Pictures/sbinningsgill/icons8-play-64.png")); // NOI18N
+        login_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-play-64.png"))); // NOI18N
         login_btn.setBorderPainted(false);
         login_btn.setContentAreaFilled(false);
         login_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -116,11 +123,11 @@ public class Login extends javax.swing.JFrame {
         );
         username_borderLayout.setVerticalGroup(
             username_borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
+            .addGap(0, 4, Short.MAX_VALUE)
         );
 
         body_div.add(username_border);
-        username_border.setBounds(10, 120, 210, 5);
+        username_border.setBounds(10, 120, 210, 4);
 
         password_border.setBackground(new java.awt.Color(153, 167, 255));
 
@@ -132,19 +139,19 @@ public class Login extends javax.swing.JFrame {
         );
         password_borderLayout.setVerticalGroup(
             password_borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
+            .addGap(0, 4, Short.MAX_VALUE)
         );
 
         body_div.add(password_border);
-        password_border.setBounds(10, 50, 210, 5);
+        password_border.setBounds(10, 50, 210, 4);
 
-        warning_username_lbl.setIcon(new javax.swing.ImageIcon("/home/cookie/Pictures/sbinningsgill/icons8-information-24.png")); // NOI18N
+        warning_username_lbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-information-24.png"))); // NOI18N
         warning_username_lbl.setToolTipText("");
         warning_username_lbl.setFocusable(false);
         body_div.add(warning_username_lbl);
         warning_username_lbl.setBounds(220, 30, 24, 24);
 
-        warning_password_lbl.setIcon(new javax.swing.ImageIcon("/home/cookie/Pictures/sbinningsgill/icons8-information-24.png")); // NOI18N
+        warning_password_lbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-information-24.png"))); // NOI18N
         warning_password_lbl.setToolTipText("");
         warning_password_lbl.setFocusable(false);
         body_div.add(warning_password_lbl);
@@ -189,12 +196,17 @@ public class Login extends javax.swing.JFrame {
                 password_inFocusLost(evt);
             }
         });
+        password_in.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password_inActionPerformed(evt);
+            }
+        });
         body_div.add(password_in);
         password_in.setBounds(10, 100, 210, 17);
 
-        image_center.setIcon(new javax.swing.ImageIcon("/home/cookie/Pictures/sbinningsgill/undraw_old_day_6x25.png")); // NOI18N
+        image_center.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/undraw_old_day_6x25.png"))); // NOI18N
         body_div.add(image_center);
-        image_center.setBounds(10, 20, 380, 300);
+        image_center.setBounds(10, 10, 380, 300);
 
         javax.swing.GroupLayout main_divLayout = new javax.swing.GroupLayout(main_div);
         main_div.setLayout(main_divLayout);
@@ -222,16 +234,15 @@ public class Login extends javax.swing.JFrame {
             .addComponent(main_div, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(431, 450));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
-        // TODO add your handling code here:
+    public void execLogin() {
         boolean pass_check = false;
         DatabaseConn db = new DatabaseConn();
-        ToolTip info = new ToolTip();
-        if (username_in.getText().isEmpty() || username_in.getText().length() < 6) {
+        InfoHandler info = new InfoHandler();
+        if (username_in.getText().isEmpty() || username_in.getText().length() < 6 || username_in.getText().equals("SYSTEM")) {
             info.manageTip(warning_username_lbl, "<html>\nPlease insert the username properly !<br>\nit's about 6 - 11 characters\n</html>");
             pass_check = false;
         } else {info.manageTip(warning_username_lbl); pass_check = true;}
@@ -247,16 +258,49 @@ public class Login extends javax.swing.JFrame {
                     info.manageTip(warning_password_lbl, "<html>\nYou have inserted incorrect password<br>\nfor account '"+username_in.getText()+"'\n</html>");                    
                     break;
                 case 'N':
-                    String msg = "<html>There are no issued player to be found yet ...\nCreate new one as "+username_in.getText()+" ?";
+                    String msg = "<html>The re are no issued player to be found yet ...\nCreate new one as "+username_in.getText()+" ?";
                     String head = "Detecting Newcomers";
                     int dialog = info.manageDialog(JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, msg, head);
                     if (dialog == JOptionPane.YES_OPTION) {
+                    try {
                         System.out.println("Oke, buat akun");
                         db.createNewPlayer(username_in, password_in);
+                        this.username = username_in.getText().toUpperCase();
+                        this.dispose();
+                        Lobby lobby = new Lobby();
+                        lobby.username = this.username;
+                        lobby.fetchInfo(username);
+                        lobby.setVisible(true);
+                        db.setLobby(lobby);
+                    } catch (UnknownHostException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SocketException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    }
+                    break;
+                case 'T':
+                    try {
+                        this.username = username_in.getText().toUpperCase();                    
+                        this.dispose();
+                        Lobby lobby = new Lobby(); 
+                        lobby.username = this.username;                        
+                        lobby.fetchInfo(username);
+                        lobby.setVisible(true);
+                        db.setLobby(lobby);                                            
+                    } catch (UnknownHostException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SocketException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
             }
-        }
+        }        
+    }
+    
+    private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
+        // TODO add your handling code here:
+        this.execLogin();
     }//GEN-LAST:event_login_btnActionPerformed
 
     
@@ -285,6 +329,11 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_password_inFocusLost
 
+    private void password_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_inActionPerformed
+        // TODO add your handling code here:
+        this.execLogin();
+    }//GEN-LAST:event_password_inActionPerformed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body_div;
     private javax.swing.JLabel head_1_lbl;
