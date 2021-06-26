@@ -3,6 +3,7 @@ import java.sql.*;
 import javax.swing.*;
 import window.*;
 import function.*;
+import java.util.concurrent.TimeUnit;
 //
 public class DatabaseConn extends Thread {
     //
@@ -10,10 +11,10 @@ public class DatabaseConn extends Thread {
     private String url = "jdbc:mysql://localhost:3306/sbinning_sgill?zeroDateTimeBehavior=CONVERT_TO_NULL&useTimezone=true&serverTimezone=UTC";
     private String user = "root";
     private String pass = "irsyadndu1ABC";
-    private String query, query2;
-    private Connection conn, conn2;
-    private Statement stm, stm2;
-    private ResultSet res, res2;
+    private String query, query2, query3;
+    private Connection conn, conn2, conn3;
+    private Statement stm, stm2, stm3;
+    private ResultSet res, res2, res3;
     private Login login = new Login();
     private JTextArea chat_room_ta;
     private JLabel username_head_val;
@@ -23,6 +24,7 @@ public class DatabaseConn extends Thread {
     private InGame game_1 = new InGame();
     private InGame game_2 = new InGame();
     private Lobby lobby;
+    private GameConn gamecon = new GameConn();
     
     //
     public void setLobby(Lobby lobby) {this.lobby = lobby;}
@@ -175,7 +177,6 @@ public class DatabaseConn extends Thread {
                                 String head = "Respond Challange";
                                 int dialog = info.manageDialog(JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, msg, head);
                                 if (dialog == JOptionPane.YES_OPTION) {
-                                    chatroom_ta.append(res.getString("USERNAME")+" vs "+res.getString("CHAT")+" !\n");                                                                
                                     opp_username = res.getString("USERNAME");                                    
                                     System.out.println("IN-GAME");
                                     try {
@@ -187,20 +188,41 @@ public class DatabaseConn extends Thread {
                                         stm2.close();
                                         conn2.close();
                                     } catch(Exception e) {System.out.println(e.toString());}
-                                    game_1.setVisible(true);
-                                    this.lobby.dispose();
-                                    break;
                                 }
                             }
                             chatroom_ta.setCaretPosition(chatroom_ta.getDocument().getLength());                                                    
                             this.latest_chat_time = res.getString("CUR_TIME");                            
                         } else if (res.getString("TYPE").equals("ACCEPT")) {
-                            chatroom_ta.append(res.getString("USERNAME")+" vs "+res.getString("CHAT")+" !\n");                            
-                            game_2.setVisible(true);                            
-                            this.lobby.dispose();                            
-                            break;
+                            chatroom_ta.append(res.getString("USERNAME")+" vs "+res.getString("CHAT")+" !\n---\n");                                                        
+                            chatroom_ta.setCaretPosition(chatroom_ta.getDocument().getLength());                                                    
+                            opp_username = res.getString("CHAT");                                                                                            
+                            if (username_head_val.getText().equals(res.getString("USERNAME"))) {
+                                try {
+                                    TimeUnit.SECONDS.sleep(1);
+                                    Class.forName(this.driver);
+                                    conn3 = DriverManager.getConnection(this.url, this.user, this.pass);                
+                                    stm3 = conn3.createStatement();                
+                                        query3 = "INSERT INTO CHAT_ROOM VALUES (CURDATE(),CURTIME(),'"+username_head_val.getText()+"','INGAME','"+opp_username+"');";
+                                    stm3.execute(this.query3);
+                                    stm3.close();
+                                    conn3.close();
+                                    TimeUnit.SECONDS.sleep(1);          
+                                } catch(Exception e) {System.out.println(e.toString());}              
+                            }              
+                            if (username_head_val.getText().equals(res.getString("USERNAME")) || opp_username.equals(res.getString("CHAT"))) {
+                                if (username_head_val.getText().equals(res.getString("USERNAME"))) {
+                                    gamecon.setUsername(username_head_val.getText());
+                                    gamecon.setOppUsername(opp_username);                                    
+                                } else {
+                                    gamecon.setUsername(opp_username);
+                                    gamecon.setOppUsername(res.getString("USERNAME"));                                                                        
+                                }                                
+                                gamecon.start();                                
+                            }
+                            this.latest_chat_time = res.getString("CUR_TIME");                                                        
                         } else {
                             this.finish_load = true;
+                            this.latest_chat_time = res.getString("CUR_TIME");                            
                         }
                     }
                 }
@@ -215,7 +237,7 @@ public class DatabaseConn extends Thread {
             Class.forName(this.driver);
             conn = DriverManager.getConnection(this.url, this.user, this.pass);
             stm = conn.createStatement();
-            query = "SELECT USERNAME FROM PLAYER WHERE USERNAME = '"+opp_username+"';";
+            query = "SELECT * FROM PLAYER WHERE USERNAME = '"+opp_username+"';";
             res = stm.executeQuery(this.query);
             while(res.next()) {check_player = true;}
             stm.close();

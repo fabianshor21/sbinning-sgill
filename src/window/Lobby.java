@@ -680,7 +680,7 @@ public class Lobby extends javax.swing.JFrame {
     private void mode_classic_divMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mode_classic_divMouseClicked
         // TODO add your handling code here:
         this.opp_username = tip.sendChallenge();
-        if (!this.opp_username.isEmpty()) {
+        if (!this.opp_username.isEmpty() && !this.opp_username.toUpperCase().equals(username_head_val.getText())) {
             db.manageReqChallenge(username_head_val, this.opp_username);
         }
     }//GEN-LAST:event_mode_classic_divMouseClicked

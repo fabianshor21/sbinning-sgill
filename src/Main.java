@@ -10,7 +10,8 @@ public class Main {
     private static String message;
     //
     public static void main(String[] args) {
-        Login player1 = new Login(); player1.setVisible(true);
-        Login player2 = new Login(); player2.setVisible(true);        
+    //    Login player1 = new Login(); player1.setVisible(true);
+    //    Login player2 = new Login(); player2.setVisible(true);        
+    InGame game = new InGame(); game.setVisible(true);
     }   
 }
