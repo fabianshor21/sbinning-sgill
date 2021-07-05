@@ -19,7 +19,7 @@ public class InfoHandler {
     public String sendChallenge() {
         try {
             String opp_username = JOptionPane.showInputDialog(null,"Input the opponent's username","Request Challenge", JOptionPane.INFORMATION_MESSAGE);
-            return opp_username;
+            return opp_username.toUpperCase();
         } catch (NullPointerException e) {return "";}
     }    
 }

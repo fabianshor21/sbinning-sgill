@@ -90,6 +90,8 @@ public class Lobby extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sbinning Sgill");
+        setAutoRequestFocus(false);
+        setFocusable(false);
         setResizable(false);
 
         main_div.setBackground(new java.awt.Color(255, 255, 255));
@@ -693,7 +695,9 @@ public class Lobby extends javax.swing.JFrame {
 
     private void chat_inFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chat_inFocusGained
         // TODO add your handling code here:
-        chat_in.setText("");
+        if (chat_in.getText().equals("Chat goes here ...")) {
+            chat_in.setText("");
+        }
     }//GEN-LAST:event_chat_inFocusGained
 
     private void chat_inFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chat_inFocusLost

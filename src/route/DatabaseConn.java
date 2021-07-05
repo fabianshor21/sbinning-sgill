@@ -11,10 +11,10 @@ public class DatabaseConn extends Thread {
     private String url = "jdbc:mysql://localhost:3306/sbinning_sgill?zeroDateTimeBehavior=CONVERT_TO_NULL&useTimezone=true&serverTimezone=UTC";
     private String user = "root";
     private String pass = "irsyadndu1ABC";
-    private String query, query2, query3;
-    private Connection conn, conn2, conn3;
-    private Statement stm, stm2, stm3;
-    private ResultSet res, res2, res3;
+    private String query, query2, query3, query4, query5;
+    private Connection conn, conn2, conn3, conn4, conn5;
+    private Statement stm, stm2, stm3, stm4, stm5;
+    private ResultSet res, res2, res3, res4, res5;
     private Login login = new Login();
     private JTextArea chat_room_ta;
     private JLabel username_head_val;
@@ -108,6 +108,7 @@ public class DatabaseConn extends Thread {
     }
     public void appendChatLobby(JTextField chat_in, JLabel username_head_val) {
         try {
+       //    TimeUnit.SECONDS.sleep(0);                      
             Class.forName(this.driver);
             conn = DriverManager.getConnection(this.url, this.user, this.pass);
             stm = conn.createStatement();
@@ -164,12 +165,13 @@ public class DatabaseConn extends Thread {
                             this.latest_chat_time = res.getString("CUR_TIME");
                         }
                         else if (!this.finish_load && res.getString("TYPE").equals("REQUEST")){
-                            chatroom_ta.append(res.getString("CUR_TIME").substring(0, 5)+" - SYSTEM\n");                                                            
                             // requester
                             if (username_head_val.getText().equals(res.getString("USERNAME"))) {
+                            chatroom_ta.append(res.getString("CUR_TIME").substring(0, 5)+" - SYSTEM\n");                                                                                            
                                 chatroom_ta.append("You've challanged "+res.getString("CHAT")+" !\n");
                                 chatroom_ta.append("Waiting for your opponent ...\n---\n");
-                            } else {
+                            } else if (username_head_val.getText().equals(res.getString("CHAT"))) {
+                                chatroom_ta.append(res.getString("CUR_TIME").substring(0, 5)+" - SYSTEM\n");                                                                                            
                                 chatroom_ta.append(res.getString("USERNAME")+"'ve challanged you !\n");
                                 chatroom_ta.append("Waiting for your action ...\n---\n");    
                                 chatroom_ta.setCaretPosition(chatroom_ta.getDocument().getLength());                                                                                    
@@ -202,23 +204,41 @@ public class DatabaseConn extends Thread {
                                     Class.forName(this.driver);
                                     conn3 = DriverManager.getConnection(this.url, this.user, this.pass);                
                                     stm3 = conn3.createStatement();                
-                                        query3 = "INSERT INTO CHAT_ROOM VALUES (CURDATE(),CURTIME(),'"+username_head_val.getText()+"','INGAME','"+opp_username+"');";
+                                    query3 = "INSERT INTO CHAT_ROOM VALUES (CURDATE(),CURTIME(),'"+username_head_val.getText()+"','INGAME','"+opp_username+"');";
                                     stm3.execute(this.query3);
                                     stm3.close();
                                     conn3.close();
                                     TimeUnit.SECONDS.sleep(1);          
                                 } catch(Exception e) {System.out.println(e.toString());}              
                             }              
-                            if (username_head_val.getText().equals(res.getString("USERNAME")) || opp_username.equals(res.getString("CHAT"))) {
+                            if (username_head_val.getText().equals(res.getString("USERNAME")) || username_head_val.getText().equals(res.getString("CHAT"))) {
+                                gamecon.setPlayer1(res.getString("CHAT"));
+                                gamecon.setPlayer2(res.getString("USERNAME")); 
+                                gamecon.setCurrentPlayer(username_head_val.getText());
                                 if (username_head_val.getText().equals(res.getString("USERNAME"))) {
-                                    gamecon.setUsername(username_head_val.getText());
-                                    gamecon.setOppUsername(opp_username);                                    
-                                } else {
-                                    gamecon.setUsername(opp_username);
-                                    gamecon.setOppUsername(res.getString("USERNAME"));                                                                        
-                                }                                
-                                gamecon.start();                                
-                            }
+                                    try {
+                                        Class.forName(this.driver);
+                                        conn4 = DriverManager.getConnection(this.url, this.user, this.pass);                
+                                        stm4 = conn4.createStatement();                
+                                        query4 = "INSERT INTO GAME_ROOM VALUES ('"+res.getString("CHAT")+"', '"+res.getString("CHAT")+"','"+res.getString("USERNAME")+"',0,0,0,'RUNNING','"+res.getString("CHAT")+"','ROLLING');";
+                                        stm4.execute(this.query4);
+                                        stm4.close();
+                                        conn4.close();
+                                    } catch(Exception e) {System.out.println(e.toString());}                                    
+                                }                                              
+                                gamecon.start();                                                                
+                            }/*
+                            try {
+                                TimeUnit.SECONDS.sleep(1);                                
+                                Class.forName(this.driver);
+                                conn5 = DriverManager.getConnection(this.url, this.user, this.pass);                
+                                stm5 = conn5.createStatement();                
+                                query5 = "INSERT INTO CHAT_ROOM VALUES (CURDATE(),CURTIME(),'"+res.getString("CHAT")+"','CHAT','ONGOING ...');";
+                                stm5.execute(this.query5);
+                                stm5.close();
+                                conn5.close();
+                            } catch(Exception e) {System.out.println(e.toString());}    
+                            */
                             this.latest_chat_time = res.getString("CUR_TIME");                                                        
                         } else {
                             this.finish_load = true;
