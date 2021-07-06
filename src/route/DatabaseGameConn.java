@@ -21,6 +21,7 @@ public class DatabaseGameConn extends Thread {
     private ResultSet res, res2, res3, res4;    
     public String username_p1, username_p2, current_player, opp_player;
     public PlayerMechanic[] pm;    
+    private SkillMechanic sm = new SkillMechanic();    
     public int opp_cur_turn = 0, opp_next_turn = 0, opp_rem_turn = 0, idx_turn, roll_dice;
     public JPanel[] block_map;
     public JLabel dice_val_lbl;    
@@ -128,6 +129,10 @@ public class DatabaseGameConn extends Thread {
                             } else {this.opp_rem_turn = -1;}
                             bm.setBlockMap(this.block_map);
                             this.pm[0].dice_btn.setEnabled(false); this.pm[1].dice_btn.setEnabled(false);
+                            bm.setObjPlayer(pm);
+                            if (idx_turn == 0) {bm.setIdxTurn(1);}
+                            else {bm.setIdxTurn(0);}
+                            bm.setIdxTurn(idx_turn);
                             bm.animateplayerMovement(opp_cur_turn, opp_next_turn, opp_rem_turn, color, pm);
                             this.updatePlayerAction(username_p1, username_p2, "ROLLING");
                             if (idx_turn == 0) {this.pm[0].border_turn.setVisible(true); this.pm[1].border_turn.setVisible(false);}

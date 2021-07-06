@@ -11,6 +11,7 @@ public class PlayerMechanic {
     private String p_username, p_color;
     public JPanel border_turn;
     public JButton dice_btn;
+    public JProgressBar p1_healthbar, p2_healthbar;        
     //
     public void setUsername(String p_username) {this.p_username = p_username;}
     public void setColor(String p_color) {this.p_color = p_color;}

@@ -27,6 +27,7 @@ public class InGame extends javax.swing.JFrame {
     private BoardMechanic bm = new BoardMechanic();
     private PlayerMechanic[] pm = new PlayerMechanic[2];
     private DatabaseGameConn dbg = new DatabaseGameConn();
+    private SkillMechanic sm = new SkillMechanic();
     /*    
     private DatabaseConn db = new DatabaseConn();
     */
@@ -42,6 +43,8 @@ public class InGame extends javax.swing.JFrame {
         player1_val.setText(this.player1); player2_val.setText(this.player2);
         pm[0] = new PlayerMechanic(); pm[0].setUsername(player1); pm[0].setCurPost(0); pm[0].setColor("#FF9999"); pm[0].border_turn = this.border_turn_p1; pm[0].dice_btn = this.dice_btn;
         pm[1] = new PlayerMechanic(); pm[1].setUsername(player2); pm[1].setCurPost(0); pm[1].setColor("#9996F5"); pm[1].border_turn = this.border_turn_p2; pm[1].dice_btn = this.dice_btn;
+        pm[0].p1_healthbar = this.p1_healthbar; pm[0].p2_healthbar = this.p2_healthbar;
+        pm[1].p1_healthbar = this.p1_healthbar; pm[1].p2_healthbar = this.p2_healthbar;        
         this.p_turn = dbg.getPlayerTurn(player1, player2);
         if (p_turn.equals(pm[0].getUsername())) {idx_p_turn = 0;}
         if (p_turn.equals(pm[1].getUsername())) {idx_p_turn = 1;}             
@@ -55,7 +58,7 @@ public class InGame extends javax.swing.JFrame {
             main_div.setBorder(javax.swing.BorderFactory.createLineBorder(Color.decode("#9996F5"),4));            
             board_div.setBorder(new MatteBorder(0, 0, 0, 4, Color.decode("#9996F5")));                            
         }
-        
+                
         dbg.username_p1 = this.player1; dbg.username_p2 = this.player2; dbg.current_player = this.current_player;
         dbg.pm = this.pm;
         dbg.block_map = this.block_map;
@@ -104,9 +107,9 @@ public class InGame extends javax.swing.JFrame {
         player2_val = new javax.swing.JLabel();
         border_turn_p1 = new javax.swing.JPanel();
         border_turn_p2 = new javax.swing.JPanel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        p1_healthbar = new javax.swing.JProgressBar();
         player1_val1 = new javax.swing.JLabel();
-        jProgressBar3 = new javax.swing.JProgressBar();
+        p2_healthbar = new javax.swing.JProgressBar();
         player1_val2 = new javax.swing.JLabel();
         player1_val3 = new javax.swing.JLabel();
         player1_val4 = new javax.swing.JLabel();
@@ -114,7 +117,7 @@ public class InGame extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jButton8 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setResizable(false);
 
@@ -567,23 +570,23 @@ public class InGame extends javax.swing.JFrame {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jProgressBar1.setBackground(new java.awt.Color(255, 255, 255));
-        jProgressBar1.setForeground(new java.awt.Color(255, 153, 153));
-        jProgressBar1.setMaximum(1000);
-        jProgressBar1.setValue(1000);
-        jProgressBar1.setBorder(null);
-        jProgressBar1.setBorderPainted(false);
+        p1_healthbar.setBackground(new java.awt.Color(255, 255, 255));
+        p1_healthbar.setForeground(new java.awt.Color(255, 153, 153));
+        p1_healthbar.setMaximum(1000);
+        p1_healthbar.setValue(1000);
+        p1_healthbar.setBorder(null);
+        p1_healthbar.setBorderPainted(false);
 
         player1_val1.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
         player1_val1.setForeground(new java.awt.Color(255, 153, 153));
         player1_val1.setText("HP");
 
-        jProgressBar3.setBackground(new java.awt.Color(255, 255, 255));
-        jProgressBar3.setForeground(new java.awt.Color(153, 150, 245));
-        jProgressBar3.setMaximum(1000);
-        jProgressBar3.setValue(1000);
-        jProgressBar3.setBorder(null);
-        jProgressBar3.setBorderPainted(false);
+        p2_healthbar.setBackground(new java.awt.Color(255, 255, 255));
+        p2_healthbar.setForeground(new java.awt.Color(153, 150, 245));
+        p2_healthbar.setMaximum(1000);
+        p2_healthbar.setValue(1000);
+        p2_healthbar.setBorder(null);
+        p2_healthbar.setBorderPainted(false);
 
         player1_val2.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
         player1_val2.setForeground(new java.awt.Color(153, 150, 245));
@@ -634,11 +637,11 @@ public class InGame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, stat_divLayout.createSequentialGroup()
                         .addComponent(player1_val1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(p1_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, stat_divLayout.createSequentialGroup()
                         .addComponent(player1_val2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(p2_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, stat_divLayout.createSequentialGroup()
                         .addComponent(player1_val3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -662,11 +665,11 @@ public class InGame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(player1_val1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(p1_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(player1_val2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jProgressBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(p2_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(33, 33, 33)
                 .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(player1_val3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -713,6 +716,7 @@ public class InGame extends javax.swing.JFrame {
         this.p_turn = dbg.getPlayerTurn(player1, player2);
         if (this.p_turn.equals(this.current_player)) {            
             bm = new BoardMechanic();
+            
             bm.setObjPlayer(pm);        
             bm.setBlockMap(this.block_map); 
             bm.setDiceVal(dice_val_lbl);
@@ -796,12 +800,12 @@ public class InGame extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JProgressBar jProgressBar3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel main_div;
+    private javax.swing.JProgressBar p1_healthbar;
+    private javax.swing.JProgressBar p2_healthbar;
     private javax.swing.JLabel player1_val;
     private javax.swing.JLabel player1_val1;
     private javax.swing.JLabel player1_val2;

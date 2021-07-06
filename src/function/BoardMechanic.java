@@ -16,7 +16,10 @@ public class BoardMechanic extends Thread{
     private String p1_username, p2_username, p_turn;
     private PlayerMechanic[] pm = new PlayerMechanic[2];        
     private DatabaseGameConn dbg = new DatabaseGameConn();
+    private SkillMechanic sm = new SkillMechanic();
     //
+    public void setIdxTurn(int idx_p_turn) {this.idx_p_turn = idx_p_turn;}
+    public void setSkill(SkillMechanic sm) {this.sm = sm;}
     public void setObjPlayer(PlayerMechanic[] pm) {this.pm = pm;}
     public void setPlayerTurn(String p_turn) {this.p_turn = p_turn;}
     public void setDiceVal(JLabel dice_val_lbl) {this.dice_val_lbl = dice_val_lbl;}
@@ -54,15 +57,19 @@ public class BoardMechanic extends Thread{
                                 continue;
                             } */
                             if (this.block_map[i].getBackground().getRGB() != Color.WHITE.getRGB() && i != this.p_next_post) {
+                                System.out.println("blok " + i + "berwarna");                                
                                 this.block_map[i-1].setBackground(Color.WHITE);
                                 continue;
                             } else {
+                                if (i == 11 && this.block_map[i].getBackground().getRGB() != Color.WHITE.getRGB() && this.p_rem_post >= 0) {
+                                    this.block_map[i-1].setBackground(Color.WHITE);
+                                    continue;
+                                }
                                 this.block_map[i].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                
                             }
-                            this.block_map[i].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                                    
+                        //    this.block_map[i].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                                    
                             if (this.block_map[i-1].getBackground().getRGB() == this.block_map[i].getBackground().getRGB()) {
                                 this.block_map[i-1].setBackground(Color.WHITE);
-                                System.out.println("belakang ga ada musuh");                                
                             }
                             this.p_cur_post = i;
                         } else {
@@ -71,7 +78,7 @@ public class BoardMechanic extends Thread{
                         }
                         if (i < this.block_map.length-1) {
                             if (this.block_map[i+1].getBackground().getRGB() != Color.WHITE.getRGB()) {
-                                if ((i+1) == this.p_next_post){ //&& this.p_rem_post < 0) {
+                                if ((i+1) == this.p_next_post && this.p_rem_post < 0) {
                                     this.block_map[i].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                                            
                                     System.out.println("timpa musuh, remainder : " + this.p_rem_post);                                                                        
                                 } else {
@@ -92,7 +99,6 @@ public class BoardMechanic extends Thread{
                 this.block_map[0].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                        
                 if (this.block_map[11].getBackground().getRGB() == this.block_map[0].getBackground().getRGB()) {
                     this.block_map[11].setBackground(Color.WHITE);
-                    System.out.println("belakang ga ada musuh");                                
                 }                
             //    this.block_map[11].setBackground(Color.WHITE);                            
             //    this.block_map[0].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                        
@@ -110,8 +116,12 @@ public class BoardMechanic extends Thread{
                     try {                    
                         if (i == 0) {
                             Thread.sleep(500);
-                            this.block_map[11].setBackground(Color.WHITE);                            
-                            this.block_map[0].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                        
+                            if (this.block_map[0].getBackground().getRGB() == Color.WHITE.getRGB()) {
+                                this.block_map[0].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                                                                    
+                            } else {this.block_map[11].setBackground(Color.WHITE);}                            
+                            if (this.block_map[11].getBackground().getRGB() == this.block_map[0].getBackground().getRGB()) {
+                                this.block_map[11].setBackground(Color.WHITE);
+                            }                
                             this.p_cur_post = i;                            
                         } else {
                             Thread.sleep(500);
@@ -128,15 +138,15 @@ public class BoardMechanic extends Thread{
                                     continue;
                                 } */
                                 if (this.block_map[i].getBackground().getRGB() != Color.WHITE.getRGB() && i != this.p_rem_post) {
+                                    System.out.println("blok " + i + "berwarna");
                                     this.block_map[i-1].setBackground(Color.WHITE);
                                     continue;
                                 } else {
                                     this.block_map[i].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                
                                 }
-                                this.block_map[i].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                                    
+                            //    this.block_map[i].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                                    
                                 if (this.block_map[i-1].getBackground().getRGB() == this.block_map[i].getBackground().getRGB()) {
                                     this.block_map[i-1].setBackground(Color.WHITE);
-                                    System.out.println("belakang ga ada musuh");                                
                                 }
                                 this.p_cur_post = i;
                             } else {
@@ -145,7 +155,7 @@ public class BoardMechanic extends Thread{
                             }
                             if (i < this.block_map.length-1) {
                                 if (this.block_map[i+1].getBackground().getRGB() != Color.WHITE.getRGB()) {
-                                    if ((i+1) == this.p_rem_post){ //&& this.p_rem_post < 0) {
+                                    if ((i+1) == this.p_rem_post) {
                                         this.block_map[i].setBackground(Color.decode(this.pm[idx_p_turn].getColor()));                                                            
                                         System.out.println("timpa musuh, remainder : " + this.p_rem_post);                                                                        
                                     } else {
@@ -167,6 +177,9 @@ public class BoardMechanic extends Thread{
         this.pm[idx_p_turn].border_turn.setVisible(false);
         if (idx_p_turn == 0) {this.pm[1].border_turn.setVisible(true);}
         else {this.pm[0].border_turn.setVisible(true);}
+        sm.p1_healthbar = pm[idx_p_turn].p1_healthbar;
+        sm.p2_healthbar = pm[idx_p_turn].p2_healthbar;
+        sm.activateSkill(p_next_post, p_rem_post, idx_p_turn, "ROLLING");
     }
     public void animateplayerMovement(int opp_cur_post, int opp_next_post, int opp_rem_post, String color, PlayerMechanic[] pm) {
         System.out.println("remainder : " + this.p_rem_post);
@@ -193,14 +206,18 @@ public class BoardMechanic extends Thread{
                         if (!opp_ahead) {
                             if (this.block_map[i].getBackground().getRGB() != Color.WHITE.getRGB() && i != opp_next_post) {
                                 this.block_map[i-1].setBackground(Color.WHITE);
+                                System.out.println("blok " + i + "berwarna");                               
                                 continue;
                             } else {
+                                if (i == 11 && this.block_map[i].getBackground().getRGB() != Color.WHITE.getRGB() && opp_rem_post >= 0) {
+                                    this.block_map[i-1].setBackground(Color.WHITE);
+                                    continue;
+                                }
                                 this.block_map[i].setBackground(Color.decode(color));                                
                             }
-                            this.block_map[i].setBackground(Color.decode(color));                                                    
+                       //     this.block_map[i].setBackground(Color.decode(color));                                                    
                             if (this.block_map[i-1].getBackground().getRGB() == this.block_map[i].getBackground().getRGB()) {
                                 this.block_map[i-1].setBackground(Color.WHITE);
-                                System.out.println("belakang ga ada musuh");                                
                             }
                             opp_cur_post = i;
                         } else {
@@ -209,7 +226,7 @@ public class BoardMechanic extends Thread{
                         }
                         if (i < this.block_map.length-1) {
                             if (this.block_map[i+1].getBackground().getRGB() != Color.WHITE.getRGB()) {
-                                if ((i+1) == opp_next_post){ //&& this.p_rem_post < 0) {
+                                if ((i+1) == opp_next_post && opp_rem_post < 0) {
                                     this.block_map[i].setBackground(Color.decode(color));                                                            
                                     System.out.println("timpa musuh, remainder : " + opp_rem_post);                                                                        
                                 } else {
@@ -229,7 +246,6 @@ public class BoardMechanic extends Thread{
                 this.block_map[0].setBackground(Color.decode(color));                                        
                 if (this.block_map[11].getBackground().getRGB() == this.block_map[0].getBackground().getRGB()) {
                     this.block_map[11].setBackground(Color.WHITE);
-                    System.out.println("belakang ga ada musuh");                                
                 }                
                 opp_cur_post = 0;                                                        
             } catch (InterruptedException ex) {
@@ -245,22 +261,26 @@ public class BoardMechanic extends Thread{
                     try {                    
                         if (i == 0) {
                             Thread.sleep(500);
-                            this.block_map[11].setBackground(Color.WHITE);                            
-                            this.block_map[0].setBackground(Color.decode(color));                        
+                            if (this.block_map[0].getBackground().getRGB() == Color.WHITE.getRGB()) {
+                                this.block_map[0].setBackground(Color.decode(color));                                                    
+                            } else {this.block_map[11].setBackground(Color.WHITE);}                            
+                            if (this.block_map[11].getBackground().getRGB() == this.block_map[0].getBackground().getRGB()) {
+                                this.block_map[11].setBackground(Color.WHITE);
+                            }                
                             opp_cur_post = i;                            
                         } else {
                             Thread.sleep(500);
                             if (!opp_ahead) {
                                 if (this.block_map[i].getBackground().getRGB() != Color.WHITE.getRGB() && i != opp_rem_post) {
+                                    System.out.println("blok " + i + "berwarna");                                    
                                     this.block_map[i-1].setBackground(Color.WHITE);
                                     continue;
                                 } else {
                                     this.block_map[i].setBackground(Color.decode(color));                                
                                 }
-                                this.block_map[i].setBackground(Color.decode(color));                                                    
+                            //    this.block_map[i].setBackground(Color.decode(color));                                                    
                                 if (this.block_map[i-1].getBackground().getRGB() == this.block_map[i].getBackground().getRGB()) {
                                     this.block_map[i-1].setBackground(Color.WHITE);
-                                    System.out.println("belakang ga ada musuh");                                
                                 }
                                 opp_cur_post = i;
                             } else {
@@ -269,7 +289,7 @@ public class BoardMechanic extends Thread{
                             }
                             if (i < this.block_map.length-1) {
                                 if (this.block_map[i+1].getBackground().getRGB() != Color.WHITE.getRGB()) {
-                                    if ((i+1) == opp_rem_post){ //&& this.p_rem_post < 0) {
+                                    if ((i+1) == opp_rem_post) {
                                         this.block_map[i].setBackground(Color.decode(color));                                                            
                                         System.out.println("timpa musuh, remainder : " + opp_rem_post);                                                                        
                                     } else {
@@ -284,6 +304,9 @@ public class BoardMechanic extends Thread{
             }            
         }
         System.out.println(this.p_next_post);
+        sm.p1_healthbar = pm[idx_p_turn].p1_healthbar;
+        sm.p2_healthbar = pm[idx_p_turn].p2_healthbar;        
+        sm.activateSkill(opp_next_post, opp_rem_post, idx_p_turn, "WAITING");        
     }    
     @Override
     public void run() {this.animateplayerMovement();}
