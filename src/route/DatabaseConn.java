@@ -69,13 +69,13 @@ public class DatabaseConn extends Thread {
             conn.close();
         } catch(Exception e) {System.out.println(e);}        
     }
-    public void showPlayerInfo(JLabel username_head_val, JLabel winrate_val, JLabel total_win_val, JLabel total_lost_val, JLabel total_race_val, JLabel max_rank_val, JLabel current_rank_val, JLabel elo_rating_val, JLabel playtime_val, String username) {
+    public void showPlayerInfo(JLabel username_head_val, JLabel winrate_val, JLabel total_win_lost_val, JLabel leaderboard_val, JLabel total_race_val, JLabel max_rank_val, JLabel current_rank_val, JLabel elo_rating_val, JLabel playtime_val, String username) {
         try {
             System.out.println("username : "+username);
             Class.forName(this.driver);
             conn = DriverManager.getConnection(this.url, this.user, this.pass);
             stm = conn.createStatement();
-            query = "SELECT * FROM PLAYER WHERE USERNAME = '"+username+"'";
+            query = "SELECT *, ROW_NUMBER() OVER(PARTITION BY PLAYTIME ORDER BY RATING DESC) AS ROW_NUM FROM PLAYER WHERE USERNAME = '"+username+"';";
             res = stm.executeQuery(this.query);
             while(res.next()) {
                 username_head_val.setText(res.getString("USERNAME"));
@@ -83,13 +83,14 @@ public class DatabaseConn extends Thread {
                 double total_lose = res.getDouble("TOTAL_LOST");
                 double total_race = total_win + total_lose;
                 double winrate = 0.0;
-                if (total_race > 0) {winrate = (total_win / total_race)*100;}
+                if (total_race > 0 && total_win > 0) {
+                    winrate = (total_win / total_race)*100;
+                }
 
                 System.out.println(total_win+" "+total_lose+" "+total_race+" "+winrate);
-                total_race_val.setText(((int)total_race)+"");
-                winrate_val.setText(winrate+"");
-                total_win_val.setText(res.getDouble("TOTAL_WIN")+"");
-                total_lost_val.setText(res.getDouble("TOTAL_LOST")+"");
+                total_race_val.setText(" "+((int)total_race));
+                winrate_val.setText(" "+String.format("%.2f", winrate)+" %");
+                total_win_lost_val.setText(" "+res.getInt("TOTAL_WIN")+" / "+res.getInt("TOTAL_LOST"));
                 max_rank_val.setText(this.selectPlayerRank(res.getInt("MAX_RATING")));
                 current_rank_val.setText(this.selectPlayerRank(res.getInt("RATING")));
                 elo_rating_val.setText(res.getInt("RATING")+"");
@@ -99,6 +100,20 @@ public class DatabaseConn extends Thread {
             stm.close();
             conn.close();
         } catch(Exception e) {System.out.println(e);}               
+        try {
+            Class.forName(this.driver);
+            conn2 = DriverManager.getConnection(this.url, this.user, this.pass);
+            stm2 = conn2.createStatement();
+            query2 = "SELECT *, ROW_NUMBER() OVER(PARTITION BY PLAYTIME ORDER BY RATING DESC) AS ROW_NUM FROM PLAYER;";
+            res2 = stm2.executeQuery(this.query2);
+            while(res2.next()) {
+                if (username.equals(res2.getString("USERNAME"))) {
+                    leaderboard_val.setText(" "+res2.getInt("ROW_NUM"));
+                }
+            }
+            stm2.close();
+            conn2.close();
+        } catch(Exception e) {System.out.println(e);}                       
     }
     public String selectPlayerRank(double rating) {
         if (rating >= 0 && rating < 1500) {return "NOVICES";}

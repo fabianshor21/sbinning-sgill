@@ -27,6 +27,55 @@ public class DatabaseGameConn extends Thread {
     public JPanel[] block_map;
     public JLabel dice_val_lbl;    
     //
+    public void updatePlayerDetails(String username, double playtime, String win_status) {
+        double get_playtime = 0.0;
+        int get_rating = 0;
+        int get_max_rating = 0;
+        int get_win_lost = 0;
+        try {
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(this.url, this.user, this.pass);
+            stm = conn.createStatement();
+            query = "SELECT * FROM PLAYER WHERE USERNAME = '"+username+"';";
+            res = stm.executeQuery(this.query);
+            while(res.next()) {
+                get_playtime = res.getDouble("PLAYTIME") + playtime;
+                get_rating = res.getInt("RATING");
+                get_max_rating = res.getInt("MAX_RATING");
+                if (win_status.equals("WIN")) {
+                    get_win_lost = res.getInt("TOTAL_WIN") + 1;
+                    get_rating = res.getInt("RATING") + 150;
+                    get_max_rating = res.getInt("MAX_RATING");
+                    if (get_rating >= get_max_rating) {
+                        get_max_rating = get_rating;
+                    }
+                }
+                else {
+                    get_win_lost = res.getInt("TOTAL_LOST") + 1;
+                    get_rating = res.getInt("RATING");
+                    get_max_rating = res.getInt("MAX_RATING");                                        
+                    if (get_rating >= 150) {
+                        get_rating = get_rating - 150;                        
+                    }
+                }
+            }
+            stm.close();
+            conn.close();
+        } catch(Exception e) {System.out.println(e);}                
+        try {
+            Class.forName(this.driver);
+            conn2 = DriverManager.getConnection(this.url, this.user, this.pass);
+            stm2 = conn2.createStatement();
+            if (win_status.equals("WIN")) {
+                    query2 = "UPDATE PLAYER SET TOTAL_WIN = "+get_win_lost+", RATING = "+get_rating+", MAX_RATING = "+get_max_rating+", PLAYTIME = "+get_playtime+" WHERE USERNAME = '"+username+"';";                    
+            } else {
+                    query2 = "UPDATE PLAYER SET TOTAL_LOST = "+get_win_lost+", RATING = "+get_rating+", MAX_RATING = "+get_max_rating+", PLAYTIME = "+get_playtime+" WHERE USERNAME = '"+username+"';";                    
+            }
+            stm2.execute(this.query2);
+            stm2.close();
+            conn2.close();
+        } catch(Exception e) {System.out.println(e);}                                
+    }
     public void updatePlayerPost(String username_p1, String username_p2, int post, int roll_dice){
         String game_no = "";
         String p_turn = "";

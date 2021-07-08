@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -627,6 +629,11 @@ public class InGame extends javax.swing.JFrame {
         lobby_btn.setContentAreaFilled(false);
         lobby_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lobby_btn.setFocusPainted(false);
+        lobby_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lobby_btnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout stat_divLayout = new javax.swing.GroupLayout(stat_div);
         stat_div.setLayout(stat_divLayout);
@@ -755,10 +762,13 @@ public class InGame extends javax.swing.JFrame {
             this.endtime = (this.finish-this.start)/60000;
             System.out.println("--\nPLAYER 2 WIN\n--");            
             System.out.println("Duration : "+this.endtime+" min | "+this.start+" - "+this.finish);
-            if (this.current_player.equals(this.player1_val1.getText())) {
-                System.out.println("update player 1");
+       //     dbg.updatePlayerAction(player1, player2, "--");
+            if (this.current_player.equals(this.player1_val.getText())) {
+                System.out.println("update player 1 kalah");
+                dbg.updatePlayerDetails(this.player1_val.getText(), endtime, "LOST");                
             } else {
-                System.out.println("update player 2");                
+                System.out.println("update player 2 menang");                
+                dbg.updatePlayerDetails(this.player2_val.getText(), endtime, "WIN");                                
             }
         }        
     }//GEN-LAST:event_p1_healthbarStateChanged
@@ -774,13 +784,31 @@ public class InGame extends javax.swing.JFrame {
             this.endtime = (this.finish-this.start)/60000;
             System.out.println("--\nPLAYER 1 WIN\n--");            
             System.out.println("Duration : "+this.endtime+" min | "+this.start+" - "+this.finish);
-            if (this.current_player.equals(this.player1_val1.getText())) {
-                System.out.println("update player 1");
+        //    dbg.updatePlayerAction(player1, player2, "--");            
+            if (this.current_player.equals(this.player1_val.getText())) {
+                System.out.println("update player 1 menang");
+                dbg.updatePlayerDetails(this.player1_val.getText(), endtime, "WIN");                                
             } else {
-                System.out.println("update player 2");                
+                System.out.println("update player 2 kalah");                
+                dbg.updatePlayerDetails(this.player2_val.getText(), endtime, "LOST");                                
             }
         }                
     }//GEN-LAST:event_p2_healthbarStateChanged
+
+    private void lobby_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lobby_btnActionPerformed
+        // TODO add your handling code here:
+        try {
+            Lobby lobby = new Lobby();
+            lobby.username = this.current_player;            
+            lobby.fetchInfo(this.current_player);
+            lobby.setVisible(true);        
+            this.dispose();            
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(InGame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SocketException ex) {
+            Logger.getLogger(InGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lobby_btnActionPerformed
 
     /**
      * @param args the command line arguments

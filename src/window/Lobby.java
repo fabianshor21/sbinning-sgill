@@ -25,7 +25,7 @@ public class Lobby extends javax.swing.JFrame {
     }
     public void fetchInfo(String username) throws UnknownHostException, SocketException {
         System.out.println(this.username);
-        db.showPlayerInfo(username_head_val,winrate_val,total_win_val,total_lost_val,total_race_val,max_rank_val,current_rank_val,elo_rating_val,playtime_val,this.username);
+        db.showPlayerInfo(username_head_val,winrate_val,total_win_lost_val,leaderboard_val,total_race_val,max_rank_val,current_rank_val,elo_rating_val,playtime_val,this.username);
         db.setChatRoomTa(chatroom_ta);
         db.setUsernameVal(username_head_val);
         db.initChatLobby(chatroom_ta,username_head_val);
@@ -55,8 +55,8 @@ public class Lobby extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         winrate_val = new javax.swing.JLabel();
-        total_win_val = new javax.swing.JLabel();
-        total_lost_val = new javax.swing.JLabel();
+        total_win_lost_val = new javax.swing.JLabel();
+        leaderboard_val = new javax.swing.JLabel();
         total_race_val = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         max_rank_val = new javax.swing.JLabel();
@@ -183,7 +183,7 @@ public class Lobby extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 124, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("TOTAL LOST");
+        jLabel8.setText("LEADERBOARD");
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 124, 255));
@@ -193,22 +193,22 @@ public class Lobby extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 124, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("TOTAL WIN");
+        jLabel10.setText("WIN / LOST");
 
         winrate_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         winrate_val.setForeground(new java.awt.Color(102, 102, 102));
         winrate_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         winrate_val.setText("--");
 
-        total_win_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        total_win_val.setForeground(new java.awt.Color(102, 102, 102));
-        total_win_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        total_win_val.setText("--");
+        total_win_lost_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        total_win_lost_val.setForeground(new java.awt.Color(102, 102, 102));
+        total_win_lost_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        total_win_lost_val.setText("--");
 
-        total_lost_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        total_lost_val.setForeground(new java.awt.Color(102, 102, 102));
-        total_lost_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        total_lost_val.setText("--");
+        leaderboard_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        leaderboard_val.setForeground(new java.awt.Color(102, 102, 102));
+        leaderboard_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        leaderboard_val.setText("--");
 
         total_race_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         total_race_val.setForeground(new java.awt.Color(102, 102, 102));
@@ -263,15 +263,15 @@ public class Lobby extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(personal_info_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(personal_info_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(total_win_val, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(total_win_lost_val, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                     .addComponent(winrate_val, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(total_race_val, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(total_lost_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(leaderboard_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(personal_info_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -306,9 +306,9 @@ public class Lobby extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(winrate_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(total_win_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(total_win_lost_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(total_lost_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(leaderboard_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(personal_info_divLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(personal_info_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -741,6 +741,7 @@ public class Lobby extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel leaderboard_val;
     private javax.swing.JButton logout_btn;
     private javax.swing.JPanel main_div;
     private javax.swing.JLabel max_rank_val;
@@ -751,9 +752,8 @@ public class Lobby extends javax.swing.JFrame {
     private javax.swing.JPanel personal_info_div;
     private javax.swing.JLabel playtime_val;
     private javax.swing.JLabel profile_icon_lbl;
-    private javax.swing.JLabel total_lost_val;
     private javax.swing.JLabel total_race_val;
-    private javax.swing.JLabel total_win_val;
+    private javax.swing.JLabel total_win_lost_val;
     private javax.swing.JLabel username_head_val;
     private javax.swing.JLabel winrate_val;
     // End of variables declaration//GEN-END:variables

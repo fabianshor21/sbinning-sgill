@@ -311,16 +311,16 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel7" alignment="0" pref="90" max="32767" attributes="0"/>
+                                  <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel10" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="total_win_val" alignment="0" pref="56" max="32767" attributes="0"/>
+                                  <Component id="total_win_lost_val" alignment="0" pref="56" max="32767" attributes="0"/>
                                   <Component id="winrate_val" alignment="0" max="32767" attributes="0"/>
                                   <Component id="total_race_val" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="total_lost_val" max="32767" attributes="0"/>
+                                  <Component id="leaderboard_val" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -363,9 +363,9 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="winrate_val" min="-2" pref="10" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="total_win_val" min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Component id="total_win_lost_val" min="-2" pref="10" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="total_lost_val" min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Component id="leaderboard_val" min="-2" pref="10" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
@@ -417,7 +417,7 @@
                           <Color blue="ff" green="7c" red="66" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="2"/>
-                        <Property name="text" type="java.lang.String" value="TOTAL LOST"/>
+                        <Property name="text" type="java.lang.String" value="LEADERBOARD"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel9">
@@ -441,7 +441,7 @@
                           <Color blue="ff" green="7c" red="66" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="2"/>
-                        <Property name="text" type="java.lang.String" value="TOTAL WIN"/>
+                        <Property name="text" type="java.lang.String" value="WIN / LOST"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="winrate_val">
@@ -456,7 +456,7 @@
                         <Property name="text" type="java.lang.String" value="--"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="total_win_val">
+                    <Component class="javax.swing.JLabel" name="total_win_lost_val">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Ubuntu" size="12" style="0"/>
@@ -468,7 +468,7 @@
                         <Property name="text" type="java.lang.String" value="--"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="total_lost_val">
+                    <Component class="javax.swing.JLabel" name="leaderboard_val">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Ubuntu" size="12" style="0"/>
