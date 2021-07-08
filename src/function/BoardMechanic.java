@@ -14,6 +14,7 @@ public class BoardMechanic extends Thread{
     private int dice_res;
     private int p_cur_post = 0, p_next_post = 0, p_rem_post, idx_p_turn, roll_dice;
     private String p1_username, p2_username, p_turn;
+    private JProgressBar p_healthbar;
     private PlayerMechanic[] pm = new PlayerMechanic[2];        
     private DatabaseGameConn dbg = new DatabaseGameConn();
     private SkillMechanic sm = new SkillMechanic();
@@ -170,16 +171,19 @@ public class BoardMechanic extends Thread{
                 }
             }            
         }
-        System.out.println(this.p_next_post);
         dbg.updatePlayerPost(p1_username, p2_username, this.p_cur_post, this.roll_dice);
         dbg.updatePlayerAction(p1_username, p2_username, "WAITING");
         this.dice_val_lbl.setText("--");
         this.pm[idx_p_turn].border_turn.setVisible(false);
         if (idx_p_turn == 0) {this.pm[1].border_turn.setVisible(true);}
         else {this.pm[0].border_turn.setVisible(true);}
+        sm.username_p1 = p1_username;
+        sm.username_p2 = p2_username;
         sm.p1_healthbar = pm[idx_p_turn].p1_healthbar;
         sm.p2_healthbar = pm[idx_p_turn].p2_healthbar;
-        sm.activateSkill(p_next_post, p_rem_post, idx_p_turn, "ROLLING");
+        System.out.println(this.p_next_post+" "+this.p_rem_post+" "+this.idx_p_turn);        
+        this.p_healthbar = sm.activateSkill(this.p_next_post, this.p_rem_post, this.idx_p_turn, "ROLLING");
+        //sm.updateHealthBar(this.p_healthbar.getValue());
     }
     public void animateplayerMovement(int opp_cur_post, int opp_next_post, int opp_rem_post, String color, PlayerMechanic[] pm) {
         System.out.println("remainder : " + this.p_rem_post);
@@ -304,9 +308,13 @@ public class BoardMechanic extends Thread{
             }            
         }
         System.out.println(this.p_next_post);
+        sm.username_p1 = pm[0].getUsername();
+        sm.username_p2 = pm[1].getUsername();        
         sm.p1_healthbar = pm[idx_p_turn].p1_healthbar;
         sm.p2_healthbar = pm[idx_p_turn].p2_healthbar;        
-        sm.activateSkill(opp_next_post, opp_rem_post, idx_p_turn, "WAITING");        
+        System.out.println(opp_next_post+" "+opp_rem_post+" "+this.idx_p_turn);                
+        this.p_healthbar = sm.activateSkill(opp_next_post, opp_rem_post, idx_p_turn, "WAITING");        
+    //    sm.updateHealthBar(this.p_healthbar.getValue());     
     }    
     @Override
     public void run() {this.animateplayerMovement();}

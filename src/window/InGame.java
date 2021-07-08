@@ -24,10 +24,13 @@ public class InGame extends javax.swing.JFrame {
     public String current_player;
     private int p_cur_post, p_next_post, p_rem_post, idx_p_turn = 0, roll_dice = 0;
     private String p_turn = "";
+    private long start, finish;
+    private double endtime;
     private BoardMechanic bm = new BoardMechanic();
     private PlayerMechanic[] pm = new PlayerMechanic[2];
     private DatabaseGameConn dbg = new DatabaseGameConn();
     private SkillMechanic sm = new SkillMechanic();
+    private InfoHandler info = new InfoHandler();
     /*    
     private DatabaseConn db = new DatabaseConn();
     */
@@ -37,6 +40,8 @@ public class InGame extends javax.swing.JFrame {
         board_div.setBorder(new MatteBorder(0, 0, 0, 4, Color.decode("#99A7FF")));    
         this.block_map = new JPanel[] {this.block_1,this.block_2,this.block_3,this.block_4,this.block_5,this.block_6,this.block_7,this.block_8,this.block_9,this.block_10,this.block_11,this.block_12};
         this.border_turn_p2.setVisible(false);
+        this.lobby_btn.setVisible(false);
+        this.start = System.currentTimeMillis();
     }
     public void fetchInfo() {
         System.out.println("--INGAME--");        
@@ -111,11 +116,8 @@ public class InGame extends javax.swing.JFrame {
         player1_val1 = new javax.swing.JLabel();
         p2_healthbar = new javax.swing.JProgressBar();
         player1_val2 = new javax.swing.JLabel();
-        player1_val3 = new javax.swing.JLabel();
-        player1_val4 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton8 = new javax.swing.JButton();
+        help_btn = new javax.swing.JButton();
+        lobby_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -576,6 +578,16 @@ public class InGame extends javax.swing.JFrame {
         p1_healthbar.setValue(1000);
         p1_healthbar.setBorder(null);
         p1_healthbar.setBorderPainted(false);
+        p1_healthbar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                p1_healthbarStateChanged(evt);
+            }
+        });
+        p1_healthbar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                p1_healthbarPropertyChange(evt);
+            }
+        });
 
         player1_val1.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
         player1_val1.setForeground(new java.awt.Color(255, 153, 153));
@@ -587,36 +599,34 @@ public class InGame extends javax.swing.JFrame {
         p2_healthbar.setValue(1000);
         p2_healthbar.setBorder(null);
         p2_healthbar.setBorderPainted(false);
+        p2_healthbar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                p2_healthbarStateChanged(evt);
+            }
+        });
+        p2_healthbar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                p2_healthbarPropertyChange(evt);
+            }
+        });
 
         player1_val2.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
         player1_val2.setForeground(new java.awt.Color(153, 150, 245));
         player1_val2.setText("HP");
 
-        player1_val3.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
-        player1_val3.setForeground(new java.awt.Color(255, 153, 153));
-        player1_val3.setText("BLOCK-SKILL: ");
+        help_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-book-64.png"))); // NOI18N
+        help_btn.setToolTipText("Open Almanac");
+        help_btn.setBorderPainted(false);
+        help_btn.setContentAreaFilled(false);
+        help_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        help_btn.setFocusPainted(false);
 
-        player1_val4.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
-        player1_val4.setForeground(new java.awt.Color(102, 102, 102));
-        player1_val4.setText("CANNON-O-BOOM");
-
-        jScrollPane2.setBorder(null);
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(102, 102, 102));
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Cannon-o-Boom merupakan senjata andalan seluruh player. Damage nya yang besar menjanjikan kemenangan yang hakiki\n--\nDamage : 150");
-        jTextArea1.setWrapStyleWord(true);
-        jTextArea1.setBorder(null);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-book-64.png"))); // NOI18N
-        jButton8.setBorderPainted(false);
-        jButton8.setContentAreaFilled(false);
-        jButton8.setFocusPainted(false);
+        lobby_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-dog-house-64.png"))); // NOI18N
+        lobby_btn.setToolTipText("Back to Lobby");
+        lobby_btn.setBorderPainted(false);
+        lobby_btn.setContentAreaFilled(false);
+        lobby_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lobby_btn.setFocusPainted(false);
 
         javax.swing.GroupLayout stat_divLayout = new javax.swing.GroupLayout(stat_div);
         stat_div.setLayout(stat_divLayout);
@@ -625,7 +635,6 @@ public class InGame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stat_divLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, stat_divLayout.createSequentialGroup()
                         .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(border_turn_p1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
@@ -642,13 +651,11 @@ public class InGame extends javax.swing.JFrame {
                         .addComponent(player1_val2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(p2_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, stat_divLayout.createSequentialGroup()
-                        .addComponent(player1_val3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(player1_val4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(stat_divLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lobby_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(help_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         stat_divLayout.setVerticalGroup(
@@ -670,14 +677,10 @@ public class InGame extends javax.swing.JFrame {
                 .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(player1_val2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(p2_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33)
-                .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(player1_val3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(player1_val4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(help_btn, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lobby_btn, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -733,6 +736,52 @@ public class InGame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_dice_btnActionPerformed
 
+    private void p1_healthbarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_p1_healthbarPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p1_healthbarPropertyChange
+
+    private void p2_healthbarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_p2_healthbarPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p2_healthbarPropertyChange
+
+    private void p1_healthbarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_p1_healthbarStateChanged
+        // TODO add your handling code here:
+        System.out.println(this.p1_healthbar.getValue()+"/"+this.p1_healthbar.getMaximum()+" "+this.player1_val.getText());
+        if (this.p1_healthbar.getValue() <= 0) {
+            this.dice_btn.setVisible(false);
+            this.dice_val_lbl.setText("");
+            this.lobby_btn.setVisible(true);
+            this.finish = System.currentTimeMillis();
+            this.endtime = (this.finish-this.start)/60000;
+            System.out.println("--\nPLAYER 2 WIN\n--");            
+            System.out.println("Duration : "+this.endtime+" min | "+this.start+" - "+this.finish);
+            if (this.current_player.equals(this.player1_val1.getText())) {
+                System.out.println("update player 1");
+            } else {
+                System.out.println("update player 2");                
+            }
+        }        
+    }//GEN-LAST:event_p1_healthbarStateChanged
+
+    private void p2_healthbarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_p2_healthbarStateChanged
+        // TODO add your handling code here:
+        System.out.println(this.p2_healthbar.getValue()+"/"+this.p2_healthbar.getMaximum()+" "+this.player2_val.getText());        
+        if (this.p2_healthbar.getValue() <= 0) {
+            this.dice_btn.setVisible(false);
+            this.dice_val_lbl.setText("");            
+            this.lobby_btn.setVisible(true);
+            this.finish = System.currentTimeMillis();
+            this.endtime = (this.finish-this.start)/60000;
+            System.out.println("--\nPLAYER 1 WIN\n--");            
+            System.out.println("Duration : "+this.endtime+" min | "+this.start+" - "+this.finish);
+            if (this.current_player.equals(this.player1_val1.getText())) {
+                System.out.println("update player 1");
+            } else {
+                System.out.println("update player 2");                
+            }
+        }                
+    }//GEN-LAST:event_p2_healthbarStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -787,6 +836,7 @@ public class InGame extends javax.swing.JFrame {
     private javax.swing.JButton dice_btn;
     private javax.swing.JPanel dice_div;
     private javax.swing.JLabel dice_val_lbl;
+    private javax.swing.JButton help_btn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -799,18 +849,14 @@ public class InGame extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton lobby_btn;
     private javax.swing.JPanel main_div;
     private javax.swing.JProgressBar p1_healthbar;
     private javax.swing.JProgressBar p2_healthbar;
     private javax.swing.JLabel player1_val;
     private javax.swing.JLabel player1_val1;
     private javax.swing.JLabel player1_val2;
-    private javax.swing.JLabel player1_val3;
-    private javax.swing.JLabel player1_val4;
     private javax.swing.JLabel player2_val;
     private javax.swing.JPanel stat_div;
     // End of variables declaration//GEN-END:variables

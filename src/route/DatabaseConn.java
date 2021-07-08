@@ -63,13 +63,13 @@ public class DatabaseConn extends Thread {
             Class.forName(this.driver);
             conn = DriverManager.getConnection(this.url, this.user, this.pass);
             stm = conn.createStatement();
-            query = "INSERT INTO PLAYER VALUES ('"+username_in.getText().toUpperCase()+"','"+password_in.getText().toUpperCase()+"',0,0,1000,1000,0,0,0)";
+            query = "INSERT INTO PLAYER VALUES ('"+username_in.getText().toUpperCase()+"','"+password_in.getText().toUpperCase()+"',0,0,1000,1000,0.00)";
             stm.execute(this.query);
             stm.close();
             conn.close();
         } catch(Exception e) {System.out.println(e);}        
     }
-    public void showPlayerInfo(JLabel username_head_val, JLabel winrate_val, JLabel fastbreak_val, JLabel turnovers_val, JLabel total_race_val, JLabel max_rank_val, JLabel current_rank_val, JLabel elo_rating_val, JLabel playtime_val, String username) {
+    public void showPlayerInfo(JLabel username_head_val, JLabel winrate_val, JLabel total_win_val, JLabel total_lost_val, JLabel total_race_val, JLabel max_rank_val, JLabel current_rank_val, JLabel elo_rating_val, JLabel playtime_val, String username) {
         try {
             System.out.println("username : "+username);
             Class.forName(this.driver);
@@ -88,12 +88,12 @@ public class DatabaseConn extends Thread {
                 System.out.println(total_win+" "+total_lose+" "+total_race+" "+winrate);
                 total_race_val.setText(((int)total_race)+"");
                 winrate_val.setText(winrate+"");
-                fastbreak_val.setText(res.getDouble("FASTBREAK")+"");
-                turnovers_val.setText(res.getDouble("TURNOVERS")+"");
+                total_win_val.setText(res.getDouble("TOTAL_WIN")+"");
+                total_lost_val.setText(res.getDouble("TOTAL_LOST")+"");
                 max_rank_val.setText(this.selectPlayerRank(res.getInt("MAX_RATING")));
                 current_rank_val.setText(this.selectPlayerRank(res.getInt("RATING")));
                 elo_rating_val.setText(res.getInt("RATING")+"");
-                playtime_val.setText(res.getInt("PLAYTIME")+" minutes");
+                playtime_val.setText(res.getInt("PLAYTIME")+" mins");
                 //- kelarin info player
             }
             stm.close();
@@ -226,6 +226,7 @@ public class DatabaseConn extends Thread {
                                         conn4.close();
                                     } catch(Exception e) {System.out.println(e.toString());}                                    
                                 }                                              
+                                lobby.dispose();
                                 gamecon.start();                                                                
                             }/*
                             try {

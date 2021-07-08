@@ -25,10 +25,11 @@ public class Lobby extends javax.swing.JFrame {
     }
     public void fetchInfo(String username) throws UnknownHostException, SocketException {
         System.out.println(this.username);
-        db.showPlayerInfo(username_head_val,winrate_val,fastbreak_val,turnovers_val,total_race_val,max_rank_val,current_rank_val,elo_rating_val,playtime_val,this.username);
+        db.showPlayerInfo(username_head_val,winrate_val,total_win_val,total_lost_val,total_race_val,max_rank_val,current_rank_val,elo_rating_val,playtime_val,this.username);
         db.setChatRoomTa(chatroom_ta);
         db.setUsernameVal(username_head_val);
         db.initChatLobby(chatroom_ta,username_head_val);
+        db.setLobby(this);
         db.start();
         System.out.println("info loaded");        
     }
@@ -54,8 +55,8 @@ public class Lobby extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         winrate_val = new javax.swing.JLabel();
-        fastbreak_val = new javax.swing.JLabel();
-        turnovers_val = new javax.swing.JLabel();
+        total_win_val = new javax.swing.JLabel();
+        total_lost_val = new javax.swing.JLabel();
         total_race_val = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         max_rank_val = new javax.swing.JLabel();
@@ -88,7 +89,7 @@ public class Lobby extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sbinning Sgill");
         setAutoRequestFocus(false);
         setFocusable(false);
@@ -182,7 +183,7 @@ public class Lobby extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 124, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("TURNOVERS");
+        jLabel8.setText("TOTAL LOST");
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 124, 255));
@@ -192,22 +193,22 @@ public class Lobby extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 124, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("FASTBREAK");
+        jLabel10.setText("TOTAL WIN");
 
         winrate_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         winrate_val.setForeground(new java.awt.Color(102, 102, 102));
         winrate_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         winrate_val.setText("--");
 
-        fastbreak_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        fastbreak_val.setForeground(new java.awt.Color(102, 102, 102));
-        fastbreak_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fastbreak_val.setText("--");
+        total_win_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        total_win_val.setForeground(new java.awt.Color(102, 102, 102));
+        total_win_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        total_win_val.setText("--");
 
-        turnovers_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        turnovers_val.setForeground(new java.awt.Color(102, 102, 102));
-        turnovers_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        turnovers_val.setText("--");
+        total_lost_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        total_lost_val.setForeground(new java.awt.Color(102, 102, 102));
+        total_lost_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        total_lost_val.setText("--");
 
         total_race_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         total_race_val.setForeground(new java.awt.Color(102, 102, 102));
@@ -267,10 +268,10 @@ public class Lobby extends javax.swing.JFrame {
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(personal_info_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(fastbreak_val, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(total_win_val, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                     .addComponent(winrate_val, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(total_race_val, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(turnovers_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(total_lost_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(personal_info_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -305,9 +306,9 @@ public class Lobby extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(winrate_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fastbreak_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(total_win_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(turnovers_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(total_lost_val, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(personal_info_divLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(personal_info_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -715,7 +716,6 @@ public class Lobby extends javax.swing.JFrame {
     private javax.swing.JPanel container_div;
     private javax.swing.JLabel current_rank_val;
     private javax.swing.JLabel elo_rating_val;
-    private javax.swing.JLabel fastbreak_val;
     private javax.swing.JPanel game_mode_div;
     private javax.swing.JLabel game_mode_info_val;
     private javax.swing.JLabel game_mode_status_val;
@@ -751,8 +751,9 @@ public class Lobby extends javax.swing.JFrame {
     private javax.swing.JPanel personal_info_div;
     private javax.swing.JLabel playtime_val;
     private javax.swing.JLabel profile_icon_lbl;
+    private javax.swing.JLabel total_lost_val;
     private javax.swing.JLabel total_race_val;
-    private javax.swing.JLabel turnovers_val;
+    private javax.swing.JLabel total_win_val;
     private javax.swing.JLabel username_head_val;
     private javax.swing.JLabel winrate_val;
     // End of variables declaration//GEN-END:variables

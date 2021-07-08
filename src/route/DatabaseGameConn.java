@@ -1,5 +1,6 @@
 package route;
 import function.*;
+import window.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -100,7 +101,7 @@ public class DatabaseGameConn extends Thread {
             stm3.close();
             conn3.close();
         } catch(Exception e) {System.out.println(e);}                                
-    }
+    }    
     public void displayOppMovement(){
         BoardMechanic bm;
         if (this.current_player.equals(this.username_p1)) {this.opp_player = "P2_POST";}
