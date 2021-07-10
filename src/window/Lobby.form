@@ -933,7 +933,7 @@
                           <Color blue="66" green="66" red="66" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="2"/>
-                        <Property name="text" type="java.lang.String" value="RANKED RACE WITH 10 LAPS THAT ARE CALIBARTED WITH YOUR RATING"/>
+                        <Property name="text" type="java.lang.String" value="RANKED PVP THAT AFFECT YOUR RATING WITH 2000 HP AT START"/>
                       </Properties>
                     </Component>
                   </SubComponents>

@@ -120,6 +120,10 @@ public class InGame extends javax.swing.JFrame {
         player1_val2 = new javax.swing.JLabel();
         help_btn = new javax.swing.JButton();
         lobby_btn = new javax.swing.JButton();
+        player1_val3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        skill_desc_val = new javax.swing.JTextArea();
+        skill_name_val = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -133,7 +137,7 @@ public class InGame extends javax.swing.JFrame {
         block_1.setBackground(new java.awt.Color(255, 255, 255));
         block_1.setBorder(null);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-finish-flag-64.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-flag-2-64.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);
@@ -158,7 +162,7 @@ public class InGame extends javax.swing.JFrame {
         block_2.setBackground(new java.awt.Color(255, 255, 255));
         block_2.setBorder(null);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-fraud-64.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-radioactive-64.png"))); // NOI18N
         jButton3.setBorderPainted(false);
         jButton3.setContentAreaFilled(false);
         jButton3.setFocusPainted(false);
@@ -183,7 +187,7 @@ public class InGame extends javax.swing.JFrame {
         block_3.setBackground(new java.awt.Color(255, 255, 255));
         block_3.setBorder(null);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-where-to-quest-64.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-naval-mine-64.png"))); // NOI18N
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
         jButton4.setFocusPainted(false);
@@ -208,7 +212,7 @@ public class InGame extends javax.swing.JFrame {
         block_4.setBackground(new java.awt.Color(255, 255, 255));
         block_4.setBorder(null);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-iceberg-64.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-chocolate-bar-64.png"))); // NOI18N
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
         jButton2.setFocusPainted(false);
@@ -233,7 +237,7 @@ public class InGame extends javax.swing.JFrame {
         block_5.setBackground(new java.awt.Color(255, 255, 255));
         block_5.setBorder(null);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-doughnut-64.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-firework-64.png"))); // NOI18N
         jButton6.setBorderPainted(false);
         jButton6.setContentAreaFilled(false);
         jButton6.setFocusPainted(false);
@@ -258,7 +262,7 @@ public class InGame extends javax.swing.JFrame {
         block_6.setBackground(new java.awt.Color(255, 255, 255));
         block_6.setBorder(null);
 
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-fraud-64.png"))); // NOI18N
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-firework-gun-64.png"))); // NOI18N
         jButton11.setBorderPainted(false);
         jButton11.setContentAreaFilled(false);
         jButton11.setFocusPainted(false);
@@ -283,7 +287,7 @@ public class InGame extends javax.swing.JFrame {
         block_7.setBackground(new java.awt.Color(255, 255, 255));
         block_7.setBorder(null);
 
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-muscle-flexing-64.png"))); // NOI18N
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-flip-flops-64.png"))); // NOI18N
         jButton15.setBorderPainted(false);
         jButton15.setContentAreaFilled(false);
         jButton15.setFocusPainted(false);
@@ -308,7 +312,7 @@ public class InGame extends javax.swing.JFrame {
         block_8.setBackground(new java.awt.Color(255, 255, 255));
         block_8.setBorder(null);
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-blow-64.png"))); // NOI18N
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-naval-mine-64.png"))); // NOI18N
         jButton13.setBorderPainted(false);
         jButton13.setContentAreaFilled(false);
         jButton13.setFocusPainted(false);
@@ -333,7 +337,7 @@ public class InGame extends javax.swing.JFrame {
         block_9.setBackground(new java.awt.Color(255, 255, 255));
         block_9.setBorder(null);
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-where-to-quest-64.png"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-firework-64.png"))); // NOI18N
         jButton7.setBorderPainted(false);
         jButton7.setContentAreaFilled(false);
         jButton7.setFocusPainted(false);
@@ -358,7 +362,7 @@ public class InGame extends javax.swing.JFrame {
         block_10.setBackground(new java.awt.Color(255, 255, 255));
         block_10.setBorder(null);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-iceberg-64.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-fraud-64.png"))); // NOI18N
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
         jButton5.setFocusPainted(false);
@@ -383,7 +387,7 @@ public class InGame extends javax.swing.JFrame {
         block_11.setBackground(new java.awt.Color(255, 255, 255));
         block_11.setBorder(null);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-time-machine-64.png"))); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-firework-gun-64.png"))); // NOI18N
         jButton10.setBorderPainted(false);
         jButton10.setContentAreaFilled(false);
         jButton10.setFocusPainted(false);
@@ -408,7 +412,7 @@ public class InGame extends javax.swing.JFrame {
         block_12.setBackground(new java.awt.Color(255, 255, 255));
         block_12.setBorder(null);
 
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-bribery-64.png"))); // NOI18N
+        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-flip-flops-64.png"))); // NOI18N
         jButton14.setBorderPainted(false);
         jButton14.setContentAreaFilled(false);
         jButton14.setFocusPainted(false);
@@ -576,8 +580,8 @@ public class InGame extends javax.swing.JFrame {
 
         p1_healthbar.setBackground(new java.awt.Color(255, 255, 255));
         p1_healthbar.setForeground(new java.awt.Color(255, 153, 153));
-        p1_healthbar.setMaximum(1000);
-        p1_healthbar.setValue(1000);
+        p1_healthbar.setMaximum(2000);
+        p1_healthbar.setValue(2000);
         p1_healthbar.setBorder(null);
         p1_healthbar.setBorderPainted(false);
         p1_healthbar.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -597,8 +601,8 @@ public class InGame extends javax.swing.JFrame {
 
         p2_healthbar.setBackground(new java.awt.Color(255, 255, 255));
         p2_healthbar.setForeground(new java.awt.Color(153, 150, 245));
-        p2_healthbar.setMaximum(1000);
-        p2_healthbar.setValue(1000);
+        p2_healthbar.setMaximum(2000);
+        p2_healthbar.setValue(2000);
         p2_healthbar.setBorder(null);
         p2_healthbar.setBorderPainted(false);
         p2_healthbar.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -635,14 +639,36 @@ public class InGame extends javax.swing.JFrame {
             }
         });
 
+        player1_val3.setFont(new java.awt.Font("JetBrains Mono", 1, 12)); // NOI18N
+        player1_val3.setForeground(new java.awt.Color(204, 102, 255));
+        player1_val3.setText("SKILL-BLOCK:");
+
+        jScrollPane2.setBorder(null);
+
+        skill_desc_val.setEditable(false);
+        skill_desc_val.setBackground(new java.awt.Color(255, 255, 255));
+        skill_desc_val.setColumns(20);
+        skill_desc_val.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        skill_desc_val.setForeground(new java.awt.Color(102, 102, 102));
+        skill_desc_val.setLineWrap(true);
+        skill_desc_val.setRows(5);
+        skill_desc_val.setText("--");
+        skill_desc_val.setWrapStyleWord(true);
+        skill_desc_val.setBorder(null);
+        jScrollPane2.setViewportView(skill_desc_val);
+
+        skill_name_val.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        skill_name_val.setForeground(new java.awt.Color(102, 102, 102));
+        skill_name_val.setText("--");
+
         javax.swing.GroupLayout stat_divLayout = new javax.swing.GroupLayout(stat_div);
         stat_div.setLayout(stat_divLayout);
         stat_divLayout.setHorizontalGroup(
             stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stat_divLayout.createSequentialGroup()
+            .addGroup(stat_divLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, stat_divLayout.createSequentialGroup()
+                .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(stat_divLayout.createSequentialGroup()
                         .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(border_turn_p1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                             .addComponent(player1_val, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
@@ -650,19 +676,25 @@ public class InGame extends javax.swing.JFrame {
                         .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(player2_val, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                             .addComponent(border_turn_p2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, stat_divLayout.createSequentialGroup()
+                    .addGroup(stat_divLayout.createSequentialGroup()
                         .addComponent(player1_val1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(p1_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, stat_divLayout.createSequentialGroup()
+                    .addGroup(stat_divLayout.createSequentialGroup()
                         .addComponent(player1_val2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(p2_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(stat_divLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stat_divLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lobby_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(help_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(help_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(stat_divLayout.createSequentialGroup()
+                        .addComponent(player1_val3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(skill_name_val)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         stat_divLayout.setVerticalGroup(
@@ -684,7 +716,13 @@ public class InGame extends javax.swing.JFrame {
                 .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(player1_val2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(p2_healthbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(player1_val3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(skill_name_val, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(stat_divLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(help_btn, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lobby_btn, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -725,8 +763,9 @@ public class InGame extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.p_turn = dbg.getPlayerTurn(player1, player2);
         if (this.p_turn.equals(this.current_player)) {            
-            bm = new BoardMechanic();
-            
+            bm = new BoardMechanic();            
+            bm.skill_name_val = this.skill_name_val;
+            bm.skill_desc_val = this.skill_desc_val;
             bm.setObjPlayer(pm);        
             bm.setBlockMap(this.block_map); 
             bm.setDiceVal(dice_val_lbl);
@@ -798,6 +837,7 @@ public class InGame extends javax.swing.JFrame {
     private void lobby_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lobby_btnActionPerformed
         // TODO add your handling code here:
         try {
+            dbg.deleteGameRoom(player1_val.getText());
             Lobby lobby = new Lobby();
             lobby.username = this.current_player;            
             lobby.fetchInfo(this.current_player);
@@ -878,6 +918,7 @@ public class InGame extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton lobby_btn;
     private javax.swing.JPanel main_div;
     private javax.swing.JProgressBar p1_healthbar;
@@ -885,7 +926,10 @@ public class InGame extends javax.swing.JFrame {
     private javax.swing.JLabel player1_val;
     private javax.swing.JLabel player1_val1;
     private javax.swing.JLabel player1_val2;
+    private javax.swing.JLabel player1_val3;
     private javax.swing.JLabel player2_val;
+    private javax.swing.JTextArea skill_desc_val;
+    private javax.swing.JLabel skill_name_val;
     private javax.swing.JPanel stat_div;
     // End of variables declaration//GEN-END:variables
 }

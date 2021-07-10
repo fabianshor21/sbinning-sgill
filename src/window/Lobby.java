@@ -495,7 +495,7 @@ public class Lobby extends javax.swing.JFrame {
         game_mode_info_val.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         game_mode_info_val.setForeground(new java.awt.Color(102, 102, 102));
         game_mode_info_val.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        game_mode_info_val.setText("RANKED RACE WITH 10 LAPS THAT ARE CALIBARTED WITH YOUR RATING");
+        game_mode_info_val.setText("RANKED PVP THAT AFFECT YOUR RATING WITH 2000 HP AT START");
 
         javax.swing.GroupLayout info_mode_divLayout = new javax.swing.GroupLayout(info_mode_div);
         info_mode_div.setLayout(info_mode_divLayout);
@@ -667,7 +667,7 @@ public class Lobby extends javax.swing.JFrame {
 
     private void mode_classic_divMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mode_classic_divMouseEntered
         // TODO add your handling code here:
-        tip.manageModeInfo(game_mode_status_val, game_mode_info_val, "RANKED", "RANKED RACE WITH 10 LAPS THAT ARE CALIBARTED WITH YOUR RATING");
+        tip.manageModeInfo(game_mode_status_val, game_mode_info_val, "RANKED", "RANKED PVP THAT AFFECT YOUR RATING WITH 2000 HP AT START");
     }//GEN-LAST:event_mode_classic_divMouseEntered
 
     private void mode_overpower_divMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mode_overpower_divMouseEntered
@@ -677,7 +677,7 @@ public class Lobby extends javax.swing.JFrame {
 
     private void mode_rapid_divMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mode_rapid_divMouseEntered
         // TODO add your handling code here:
-        tip.manageModeInfo(game_mode_status_val, game_mode_info_val, "RAPID", "TRY TO REACH AS MANY LAPS AS YOU CAN IN SUCH 3 MINUTES PACE");
+        tip.manageModeInfo(game_mode_status_val, game_mode_info_val, "RAPID", "TRY TO DAMAGE AS MUCH AS YOU CAN IN SUCH 3 MINUTES PACE");
     }//GEN-LAST:event_mode_rapid_divMouseEntered
     
     private void mode_classic_divMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mode_classic_divMouseClicked

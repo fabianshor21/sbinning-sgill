@@ -16,10 +16,10 @@ public class DatabaseGameConn extends Thread {
     private String url = "jdbc:mysql://localhost:3306/sbinning_sgill?zeroDateTimeBehavior=CONVERT_TO_NULL&useTimezone=true&serverTimezone=UTC";
     private String user = "root";
     private String pass = "irsyadndu1ABC";
-    private String query, query2, query3, query4;
-    private Connection conn, conn2, conn3, conn4;
-    private Statement stm, stm2, stm3, stm4;
-    private ResultSet res, res2, res3, res4;    
+    private String query, query2, query3, query4, query5, query6;
+    private Connection conn, conn2, conn3, conn4, conn5, conn6;
+    private Statement stm, stm2, stm3, stm4, stm5, stm6;
+    private ResultSet res, res2, res3, res4, res5, res6;    
     public String username_p1, username_p2, current_player, opp_player;
     public PlayerMechanic[] pm;    
     private SkillMechanic sm = new SkillMechanic();    
@@ -27,6 +27,17 @@ public class DatabaseGameConn extends Thread {
     public JPanel[] block_map;
     public JLabel dice_val_lbl;    
     //
+    public void deleteGameRoom(String username) {
+        try {
+            Class.forName(this.driver);
+            conn6 = DriverManager.getConnection(this.url, this.user, this.pass);
+            stm6 = conn6.createStatement();
+            query6 = "DELETE FROM GAME_ROOM WHERE GAME_NO = '"+username+"';";                    
+            stm6.execute(this.query6);
+            stm6.close();
+            conn6.close();
+        } catch(Exception e) {System.out.println(e);}                                        
+    }
     public void updatePlayerDetails(String username, double playtime, String win_status) {
         double get_playtime = 0.0;
         int get_rating = 0;
@@ -34,46 +45,46 @@ public class DatabaseGameConn extends Thread {
         int get_win_lost = 0;
         try {
             Class.forName(this.driver);
-            conn = DriverManager.getConnection(this.url, this.user, this.pass);
-            stm = conn.createStatement();
-            query = "SELECT * FROM PLAYER WHERE USERNAME = '"+username+"';";
-            res = stm.executeQuery(this.query);
-            while(res.next()) {
-                get_playtime = res.getDouble("PLAYTIME") + playtime;
-                get_rating = res.getInt("RATING");
-                get_max_rating = res.getInt("MAX_RATING");
+            conn4 = DriverManager.getConnection(this.url, this.user, this.pass);
+            stm4 = conn4.createStatement();
+            query4 = "SELECT * FROM PLAYER WHERE USERNAME = '"+username+"';";
+            res4 = stm4.executeQuery(this.query4);
+            while(res4.next()) {
+                get_playtime = res4.getDouble("PLAYTIME") + playtime;
+                get_rating = res4.getInt("RATING");
+                get_max_rating = res4.getInt("MAX_RATING");
                 if (win_status.equals("WIN")) {
-                    get_win_lost = res.getInt("TOTAL_WIN") + 1;
-                    get_rating = res.getInt("RATING") + 150;
-                    get_max_rating = res.getInt("MAX_RATING");
+                    get_win_lost = res4.getInt("TOTAL_WIN") + 1;
+                    get_rating = res4.getInt("RATING") + 23;
+                    get_max_rating = res4.getInt("MAX_RATING");
                     if (get_rating >= get_max_rating) {
                         get_max_rating = get_rating;
                     }
                 }
                 else {
-                    get_win_lost = res.getInt("TOTAL_LOST") + 1;
-                    get_rating = res.getInt("RATING");
-                    get_max_rating = res.getInt("MAX_RATING");                                        
+                    get_win_lost = res4.getInt("TOTAL_LOST") + 1;
+                    get_rating = res4.getInt("RATING");
+                    get_max_rating = res4.getInt("MAX_RATING");                                        
                     if (get_rating >= 150) {
-                        get_rating = get_rating - 150;                        
+                        get_rating = get_rating - 15;                        
                     }
                 }
             }
-            stm.close();
-            conn.close();
+            stm4.close();
+            conn4.close();
         } catch(Exception e) {System.out.println(e);}                
         try {
             Class.forName(this.driver);
-            conn2 = DriverManager.getConnection(this.url, this.user, this.pass);
-            stm2 = conn2.createStatement();
+            conn5 = DriverManager.getConnection(this.url, this.user, this.pass);
+            stm5 = conn5.createStatement();
             if (win_status.equals("WIN")) {
-                    query2 = "UPDATE PLAYER SET TOTAL_WIN = "+get_win_lost+", RATING = "+get_rating+", MAX_RATING = "+get_max_rating+", PLAYTIME = "+get_playtime+" WHERE USERNAME = '"+username+"';";                    
+                    query5 = "UPDATE PLAYER SET TOTAL_WIN = "+get_win_lost+", RATING = "+get_rating+", MAX_RATING = "+get_max_rating+", PLAYTIME = "+get_playtime+" WHERE USERNAME = '"+username+"';";                    
             } else {
-                    query2 = "UPDATE PLAYER SET TOTAL_LOST = "+get_win_lost+", RATING = "+get_rating+", MAX_RATING = "+get_max_rating+", PLAYTIME = "+get_playtime+" WHERE USERNAME = '"+username+"';";                    
+                    query5 = "UPDATE PLAYER SET TOTAL_LOST = "+get_win_lost+", RATING = "+get_rating+", MAX_RATING = "+get_max_rating+", PLAYTIME = "+get_playtime+" WHERE USERNAME = '"+username+"';";                    
             }
-            stm2.execute(this.query2);
-            stm2.close();
-            conn2.close();
+            stm5.execute(this.query5);
+            stm5.close();
+            conn5.close();
         } catch(Exception e) {System.out.println(e);}                                
     }
     public void updatePlayerPost(String username_p1, String username_p2, int post, int roll_dice){

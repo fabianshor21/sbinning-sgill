@@ -18,6 +18,8 @@ public class BoardMechanic extends Thread{
     private PlayerMechanic[] pm = new PlayerMechanic[2];        
     private DatabaseGameConn dbg = new DatabaseGameConn();
     private SkillMechanic sm = new SkillMechanic();
+    public JLabel skill_name_val;
+    public JTextArea skill_desc_val;
     //
     public void setIdxTurn(int idx_p_turn) {this.idx_p_turn = idx_p_turn;}
     public void setSkill(SkillMechanic sm) {this.sm = sm;}
@@ -183,6 +185,7 @@ public class BoardMechanic extends Thread{
         sm.p2_healthbar = pm[idx_p_turn].p2_healthbar;
         System.out.println(this.p_next_post+" "+this.p_rem_post+" "+this.idx_p_turn);        
         this.p_healthbar = sm.activateSkill(this.p_next_post, this.p_rem_post, this.idx_p_turn, "ROLLING");
+        sm.showStatSkill(p_next_post, p_rem_post, skill_name_val, skill_desc_val);
         //sm.updateHealthBar(this.p_healthbar.getValue());
     }
     public void animateplayerMovement(int opp_cur_post, int opp_next_post, int opp_rem_post, String color, PlayerMechanic[] pm) {
