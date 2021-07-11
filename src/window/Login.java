@@ -287,7 +287,8 @@ public class Login extends javax.swing.JFrame {
                         lobby.username = this.username;                        
                         lobby.fetchInfo(username);
                         lobby.setVisible(true);
-                        db.setLobby(lobby);                                            
+                        db.setLobby(lobby);                                         
+                        Thread.currentThread().getContextClassLoader();                        
                     } catch (UnknownHostException ex) {
                         Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SocketException ex) {

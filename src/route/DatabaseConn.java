@@ -170,13 +170,15 @@ public class DatabaseConn extends Thread {
                 while(res.next()) {
                     if (this.latest_chat_time.compareTo(res.getString("CUR_TIME")) < 0) {
                         if (res.getString("TYPE").equals("CHAT")) {
-                            chatroom_ta.append(res.getString("CUR_TIME").substring(0, 5)+" - ");                                
-                            if (username_head_val.getText().equals(res.getString("USERNAME"))) {chatroom_ta.append("You");}
-                            else {chatroom_ta.append(res.getString("USERNAME"));}
-                            chatroom_ta.append(" ("+res.getString("RATING")+")\n");
-                            chatroom_ta.append(res.getString("CHAT")+"\n---\n"); 
-                   //        chatroom_ta.append("_______________________________\n");
-                            chatroom_ta.setCaretPosition(chatroom_ta.getDocument().getLength());                        
+                            if (!res.getString("CHAT").equals("SKIP")) {
+                                chatroom_ta.append(res.getString("CUR_TIME").substring(0, 5)+" - ");                                
+                                if (username_head_val.getText().equals(res.getString("USERNAME"))) {chatroom_ta.append("You");}
+                                else {chatroom_ta.append(res.getString("USERNAME"));}
+                                chatroom_ta.append(" ("+res.getString("RATING")+")\n");
+                                chatroom_ta.append(res.getString("CHAT")+"\n---\n"); 
+                       //        chatroom_ta.append("_______________________________\n");
+                                chatroom_ta.setCaretPosition(chatroom_ta.getDocument().getLength());                        
+                            }
                             this.latest_chat_time = res.getString("CUR_TIME");
                         }
                         else if (!this.finish_load && res.getString("TYPE").equals("REQUEST")){
@@ -225,6 +227,7 @@ public class DatabaseConn extends Thread {
                                     conn3.close();
                                     TimeUnit.SECONDS.sleep(1);          
                                 } catch(Exception e) {System.out.println(e.toString());}              
+                                this.latest_chat_time = res.getString("CUR_TIME");                                                                                        
                             }              
                             if (username_head_val.getText().equals(res.getString("USERNAME")) || username_head_val.getText().equals(res.getString("CHAT"))) {
                                 gamecon.setPlayer1(res.getString("CHAT"));
@@ -240,9 +243,21 @@ public class DatabaseConn extends Thread {
                                         stm4.close();
                                         conn4.close();
                                     } catch(Exception e) {System.out.println(e.toString());}                                    
+                                    try {
+                                        TimeUnit.SECONDS.sleep(1);
+                                        Class.forName(this.driver);
+                                        conn5 = DriverManager.getConnection(this.url, this.user, this.pass);                
+                                        stm5 = conn5.createStatement();                
+                                        query5 = "INSERT INTO CHAT_ROOM VALUES (CURDATE(),CURTIME(),'"+username_head_val.getText()+"','SKIP','SKIP');";
+                                        stm5.execute(this.query5);
+                                        stm5.close();
+                                        conn5.close();
+                                        TimeUnit.SECONDS.sleep(1);          
+                                    } catch(Exception e) {System.out.println(e.toString());}                                                  
                                 }                                              
+                                this.latest_chat_time = res.getString("CUR_TIME");                                                                                                                        
                                 lobby.dispose();
-                                gamecon.start();                                                                
+                                gamecon.start();                                             
                             }/*
                             try {
                                 TimeUnit.SECONDS.sleep(1);                                

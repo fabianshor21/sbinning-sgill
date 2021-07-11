@@ -126,6 +126,7 @@ public class InGame extends javax.swing.JFrame {
         skill_name_val = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sbinning Sgill");
         setAlwaysOnTop(true);
         setResizable(false);
 
@@ -837,12 +838,16 @@ public class InGame extends javax.swing.JFrame {
     private void lobby_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lobby_btnActionPerformed
         // TODO add your handling code here:
         try {
-            dbg.deleteGameRoom(player1_val.getText());
+            dbg.deleteGameRoom(player1_val.getText(), player2_val.getText());
+       //     dbg.interrupt();
+            this.dispose();                   
             Lobby lobby = new Lobby();
+            DatabaseConn db = new DatabaseConn();            
             lobby.username = this.current_player;            
             lobby.fetchInfo(this.current_player);
             lobby.setVisible(true);        
-            this.dispose();            
+            db.setLobby(lobby);
+            Thread.currentThread().getContextClassLoader();
         } catch (UnknownHostException ex) {
             Logger.getLogger(InGame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SocketException ex) {

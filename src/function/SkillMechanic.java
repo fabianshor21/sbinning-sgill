@@ -35,17 +35,36 @@ public class SkillMechanic {
         switch(post) {
             case 1: // atomic : damage 550 if Opponent HP > 80%
                 skill_name_val.setText("ATOMIC RAIN");
-                skill_desc_val.setText("Bomb them while you can. This massive weapon can only be activated when Opponent HP is above 80%\n--\nDamage : 550");            
+                skill_desc_val.setText("Bomb them while you can. This massive weapon can only be activated when Opponent HP is above 50%\n--\nDamage  : 550");            
                 break;
             case 2: // mine
             case 7: // mine : reflect 320
                 skill_name_val.setText("MINE-SWEEPER");
-                skill_desc_val.setText("This mine ain't playing. It deals damage, so watch your step carefully around this block\n--\nReflect : 320");            
+                skill_desc_val.setText("This mine ain't playing. It reflects damage, so watch your step carefully around this block\n--\nReflect : 320");            
                 break;            
             case 3: // chocolate bar : heal 250 + 25% Player HP Loss
                 skill_name_val.setText("CHOCOLATE BAR");
-                skill_desc_val.setText("Heath is your number one priority. It will even regen faster when your health is too low\n--\nHeal : 250 + (25% HP Loss)");            
+                skill_desc_val.setText("Heath is your number one priority. It will regen even faster when your health is too low\n--\nHeal    : 250 + (25% HP Loss)");            
                 break;                            
+            case 4:
+            case 8: // fireworks : damage 100 + 12% Opponent HP # reflect 25
+                skill_name_val.setText("FIREWORKS");
+                skill_desc_val.setText("Fireworks are dangerous, so use it in early-game to get the advantage. It will also hurt your hand\n--\nDamage  : 100 + (12% Opponent HP)\nReflect : 25");                        
+                break;                
+            case 5:
+            case 10: // cannon : damage 355 # reflect 125
+                skill_name_val.setText("CANNON-O-BOOM");
+                skill_desc_val.setText("It blast tons of damage by just one trigger. It's so cursed that it will damage the user badly\n--\nDamage  : 355\nReflect : 125");                                    
+                break;                
+            case 6:
+            case 11: // sandal : damage 120 + 15% Opponent HP Loss                
+                skill_name_val.setText("SANDAL TRHOWER");
+                skill_desc_val.setText("One of the safest weapons outthere. It will become your bestfriend at late-game, not so much in early\n--\nDamage  : 120 + (15% Opponent HP Loss)");                                                
+                break;
+            case 9: // robbery : damage 250 # heal 250
+                skill_name_val.setText("ROBERRY MAN");
+                skill_desc_val.setText("He's a dangerous man. He will do anything to get back healthy, even stealing\n--\nDamage  : 250\nHeal    : 250");                                                            
+                break;                
         }
     }
     public JProgressBar activateSkill(int p_next_post, int p_rem_post, int idx_turn, String mode){
@@ -58,7 +77,7 @@ public class SkillMechanic {
             case 1: // atomic : damage 550 if Opponent HP > 80%
                 this.action = "DAMAGE";
                 p_healthbar = this.modeSetter(idx_turn, mode, action);
-                if ((p_healthbar.getValue()) > (p_healthbar.getMaximum() * 0.8)) {
+                if ((p_healthbar.getValue()) > (p_healthbar.getMaximum() * 0.5)) {
                     p_healthbar.setValue(p_healthbar.getValue()-550);                                    
                 }
                 break;                
@@ -68,6 +87,7 @@ public class SkillMechanic {
                 if (idx_turn == 0) {idx_turn = 1;} else {idx_turn = 0;}
                 p_healthbar = this.modeSetter(idx_turn, mode, action);
                 p_healthbar.setValue(p_healthbar.getValue()-320);                
+                System.out.println(p_healthbar.getValue());
                 break;                
             case 3: // chocolate bar : heal 250 + 25% Player HP Loss
                 this.action = "HEAL";
@@ -92,10 +112,10 @@ public class SkillMechanic {
                 p_healthbar.setValue(p_healthbar.getValue()-(75+(int)h_current));                            
                 break;
             case 5:
-            case 10: // cannon : damage 355 # reflect 75
+            case 10: // cannon : damage 355 # reflect 125
                 this.action = "HEAL";
                 p_healthbar = this.modeSetter(idx_turn, mode, action);
-                p_healthbar.setValue(p_healthbar.getValue()-75);                        
+                p_healthbar.setValue(p_healthbar.getValue()-125);                        
                 this.action = "DAMAGE";
                 p_healthbar = this.modeSetter(idx_turn, mode, action);
                 p_healthbar.setValue(p_healthbar.getValue()-355);                            

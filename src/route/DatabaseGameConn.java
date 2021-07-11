@@ -26,13 +26,14 @@ public class DatabaseGameConn extends Thread {
     public int opp_cur_turn = 0, opp_next_turn = 0, opp_rem_turn = 0, idx_turn, roll_dice;
     public JPanel[] block_map;
     public JLabel dice_val_lbl;    
+    private boolean exit;
     //
-    public void deleteGameRoom(String username) {
+    public void deleteGameRoom(String p1_username, String p2_username) {
         try {
             Class.forName(this.driver);
             conn6 = DriverManager.getConnection(this.url, this.user, this.pass);
             stm6 = conn6.createStatement();
-            query6 = "DELETE FROM GAME_ROOM WHERE GAME_NO = '"+username+"';";                    
+            query6 = "DELETE FROM GAME_ROOM WHERE GAME_NO = '"+p1_username+"' OR GAME_NO = '"+p2_username+"';";                    
             stm6.execute(this.query6);
             stm6.close();
             conn6.close();
