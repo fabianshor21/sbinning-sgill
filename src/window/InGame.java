@@ -627,6 +627,11 @@ public class InGame extends javax.swing.JFrame {
         help_btn.setContentAreaFilled(false);
         help_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         help_btn.setFocusPainted(false);
+        help_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                help_btnActionPerformed(evt);
+            }
+        });
 
         lobby_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/icons8-dog-house-64.png"))); // NOI18N
         lobby_btn.setToolTipText("Back to Lobby");
@@ -854,6 +859,12 @@ public class InGame extends javax.swing.JFrame {
             Logger.getLogger(InGame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_lobby_btnActionPerformed
+
+    private void help_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_help_btnActionPerformed
+        // TODO add your handling code here:
+        Help help = new Help();
+        help.setVisible(true);
+    }//GEN-LAST:event_help_btnActionPerformed
 
     /**
      * @param args the command line arguments

@@ -33,6 +33,10 @@ public class SkillMechanic {
         int post = p_next_post;        
         if (p_rem_post >= 0) {post = p_rem_post;}
         switch(post) {
+            case 0:
+                skill_name_val.setText("--");
+                skill_desc_val.setText("--");                            
+                break;
             case 1: // atomic : damage 550 if Opponent HP > 80%
                 skill_name_val.setText("ATOMIC RAIN");
                 skill_desc_val.setText("Bomb them while you can. This massive weapon can only be activated when Opponent HP is above 50%\n--\nDamage  : 550");            

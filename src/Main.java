@@ -15,5 +15,6 @@ public class Main {
     //    Login player3 = new Login(); player3.setVisible(true);                
     //    Login player4 = new Login(); player4.setVisible(true);                        
     //    InGame game = new InGame(); game.setVisible(true);
+    //    Help help = new Help(); help.setVisible(true);
     }   
 }

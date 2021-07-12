@@ -56,7 +56,7 @@ public class DatabaseGameConn extends Thread {
                 get_max_rating = res4.getInt("MAX_RATING");
                 if (win_status.equals("WIN")) {
                     get_win_lost = res4.getInt("TOTAL_WIN") + 1;
-                    get_rating = res4.getInt("RATING") + 23;
+                    get_rating = res4.getInt("RATING") + 13;
                     get_max_rating = res4.getInt("MAX_RATING");
                     if (get_rating >= get_max_rating) {
                         get_max_rating = get_rating;
@@ -67,7 +67,7 @@ public class DatabaseGameConn extends Thread {
                     get_rating = res4.getInt("RATING");
                     get_max_rating = res4.getInt("MAX_RATING");                                        
                     if (get_rating >= 150) {
-                        get_rating = get_rating - 15;                        
+                        get_rating = get_rating - 6;                        
                     }
                 }
             }
