@@ -104,7 +104,7 @@ public class DatabaseConn extends Thread {
             Class.forName(this.driver);
             conn2 = DriverManager.getConnection(this.url, this.user, this.pass);
             stm2 = conn2.createStatement();
-            query2 = "SELECT *, ROW_NUMBER() OVER(PARTITION BY PLAYTIME ORDER BY RATING DESC) AS ROW_NUM FROM PLAYER;";
+            query2 = "SELECT *, ROW_NUMBER() OVER(ORDER BY RATING DESC) AS ROW_NUM FROM PLAYER;";
             res2 = stm2.executeQuery(this.query2);
             while(res2.next()) {
                 if (username.equals(res2.getString("USERNAME"))) {

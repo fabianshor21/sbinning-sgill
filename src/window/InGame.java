@@ -785,6 +785,7 @@ public class InGame extends javax.swing.JFrame {
             } else {this.p_rem_post = -1;}
             bm.setPlayerPost(this.p_cur_post,this.p_next_post,this.p_rem_post,this.roll_dice);
             bm.start();
+            this.dice_btn.setEnabled(false);
         }
     }//GEN-LAST:event_dice_btnActionPerformed
 

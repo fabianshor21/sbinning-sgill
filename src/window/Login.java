@@ -12,7 +12,6 @@ import javax.swing.border.MatteBorder;
 //
 public class Login extends javax.swing.JFrame {
     //
-    private int port_number;
     public String username;
     //
     

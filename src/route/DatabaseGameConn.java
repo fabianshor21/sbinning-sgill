@@ -26,7 +26,6 @@ public class DatabaseGameConn extends Thread {
     public int opp_cur_turn = 0, opp_next_turn = 0, opp_rem_turn = 0, idx_turn, roll_dice;
     public JPanel[] block_map;
     public JLabel dice_val_lbl;    
-    private boolean exit;
     //
     public void deleteGameRoom(String p1_username, String p2_username) {
         try {
